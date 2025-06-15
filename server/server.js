@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
+import userRouter from './routes/userRoutes.js';
 
 dotenv.config();
 
@@ -16,6 +17,9 @@ app.use(cors());
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
 }
+
+
+app.use("/api/user",userRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
