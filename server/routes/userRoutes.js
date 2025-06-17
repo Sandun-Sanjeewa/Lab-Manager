@@ -1,6 +1,6 @@
 import express from "express";
-import { getAllUsers, getUser, loginUser, signupUser, updateUser } from "../controllers/userController.js";
-
+import { deleteUser, getAllUsers, getUser, loginUser, signupUser, updateUser } from "../controllers/userController.js";
+import { protect, isAdmin } from "../middlewares/authMiddleware.js";
 
 
 const userRouter = express.Router();
@@ -10,6 +10,8 @@ userRouter.post("/login", loginUser);
 userRouter.get("/getallusers",getAllUsers);
 userRouter.get("/getuser/:id", getUser);
 userRouter.put("/updateuser/:id",updateUser);
+userRouter.delete("/deleteuser/:id",protect,isAdmin,deleteUser);
+
 
 export default userRouter;
 

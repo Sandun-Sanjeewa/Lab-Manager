@@ -45,3 +45,13 @@ export const updateUser = async(req,res)=>{
     }
 };
 
+export const deleteUser = async(req,res)=>{
+    try {
+        const deleteUser = await userServices.deleteUser(req.params.id);
+        res.status(200).json(deleteUser);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+};
+
+

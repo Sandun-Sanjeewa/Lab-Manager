@@ -82,10 +82,24 @@ export const updateUser = async(userId,updateData)=>{
         updateData,
         {new:true, runValidators: true}
     ).select("-password");
-
     if(!user){
         throw new Error("User not found");
     }
 
     return user;
+};
+
+export const deleteUser = async(userId)=>{
+    const user = await User.findByIdAndDelete(userId);
+
+    if(!user){
+        throw new Error("User not found");
+    }
+
+    return{
+        message: "user delete successfully",
+        id:user._id,
+        name:user._name,
+        email:user.email
+    };
 };
