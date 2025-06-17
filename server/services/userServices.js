@@ -57,3 +57,35 @@ export const loginUser = async (data) => {
 
     };
 };
+
+export const getAllUsers = async()=>{
+    const users = await User.find().select("-password");
+    return users;
+};
+
+export const getUser = async(userId)=>{
+    const user = await User.findById(userId).select("-password");
+    if(!user){
+        throw new Error("User not found");
+    }
+    return user;
+
+};
+
+export const updateUser = async(userId,updateData)=>{
+
+    if(updateData.password){
+        updateData.password = await bcrypt.hash(updateData.password,10);
+    }
+    const user = await User.findByIdAndUpdate(
+        userId,
+        updateData,
+        {new:true, runValidators: true}
+    ).select("-password");
+
+    if(!user){
+        throw new Error("User not found");
+    }
+
+    return user;
+};

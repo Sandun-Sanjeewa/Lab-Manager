@@ -17,3 +17,31 @@ export const loginUser = async(req,res)=>{
     }
 };
 
+export const getAllUsers = async(req,res)=>{
+    try {
+        const users = await userServices.getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+};
+
+
+export const getUser = async(req,res)=>{
+    try {
+        const user = await userServices.getUser(req.params.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
+};
+
+export const updateUser = async(req,res)=>{
+    try {
+        const updateUser = await userServices.updateUser(req.params.id, req.body);
+        res.status(200).json(updateUser);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+};
+
