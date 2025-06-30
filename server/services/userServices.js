@@ -58,48 +58,67 @@ export const loginUser = async (data) => {
     };
 };
 
-export const getAllUsers = async()=>{
+export const getAllUsers = async () => {
     const users = await User.find().select("-password");
     return users;
 };
 
-export const getUser = async(userId)=>{
+export const getUser = async (userId) => {
     const user = await User.findById(userId).select("-password");
-    if(!user){
+    if (!user) {
         throw new Error("User not found");
     }
     return user;
 
 };
 
-export const updateUser = async(userId,updateData)=>{
+export const updateUser = async (userId, updateData) => {
 
-    if(updateData.password){
-        updateData.password = await bcrypt.hash(updateData.password,10);
+    if (updateData.password) {
+        updateData.password = await bcrypt.hash(updateData.password, 10);
     }
     const user = await User.findByIdAndUpdate(
         userId,
         updateData,
-        {new:true, runValidators: true}
+        { new: true, runValidators: true }
+    ).select("-password");
+    if (!user) {
+        throw new Error("User not found");
+    }
+
+    return user;
+};
+
+export const updateUserrole = async (userId, userRole) => {
+    const user = await User.findByIdAndUpdate(
+        userId,
+        { role: userRole },
+        {new: true, runValidators: true}
     ).select("-password");
     if(!user){
         throw new Error("User not found");
     }
 
-    return user;
+    return {
+        id:user._id,
+        name: user.name,
+        email: user.email,
+        role:user.role,
+    };
 };
 
-export const deleteUser = async(userId)=>{
+
+export const deleteUser = async (userId) => {
     const user = await User.findByIdAndDelete(userId);
 
-    if(!user){
+    if (!user) {
         throw new Error("User not found");
     }
 
-    return{
+    return {
         message: "user delete successfully",
-        id:user._id,
-        name:user._name,
-        email:user.email
+        id: user._id,
+        name: user.name,
+        email: user.email
     };
 };

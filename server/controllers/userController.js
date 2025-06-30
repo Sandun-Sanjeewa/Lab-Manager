@@ -45,10 +45,25 @@ export const updateUser = async(req,res)=>{
     }
 };
 
+export const updateUserrole = async(req,res)=>{
+    try {
+        const {role} = req.body;
+        const {id}= req.params;
+        if(!role){
+            return res.status(400).json({error:"Role is required"});
+        }
+        const updateUser = await userServices.updateUserrole(id,role);
+        res.status(200).json(updateUser);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+};
+
 export const deleteUser = async(req,res)=>{
     try {
         const deleteUser = await userServices.deleteUser(req.params.id);
         res.status(200).json(deleteUser);
+        
     } catch (error) {
         res.status(404).json({error: error.message});
     }
