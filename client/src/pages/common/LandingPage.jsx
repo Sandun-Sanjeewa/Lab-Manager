@@ -10,7 +10,7 @@ const LandingPage = () => {
     const [isSignUpOpen, setSignUpOpen] = useState(false);
     return (
         <>
-            <div className="w-full min-h-screen overflow-auto scrollbar-hide ">
+            <div className="w-full min-h-screen  ">
                 <div className="relative z-10 w-full h-full bg-cover bg-center bg-no-repeat  overflow-hidden"
                     style={{ backgroundImage: `url(${LandingImg1})`, }}
                 >
@@ -48,16 +48,16 @@ const LandingPage = () => {
                                 <SignupForm onClose={() => setSignUpOpen(false)} />
                             </Modal>
                         </main>
-                        {/* <div >
+                        <div >
                             <Footer />
-                        </div> */}
+                        </div>
 
                     </div>
 
                 </div>
-                <div >
+                {/* <div >
                     <Footer />
-                </div>
+                </div> */}
             </div>
         </>
 

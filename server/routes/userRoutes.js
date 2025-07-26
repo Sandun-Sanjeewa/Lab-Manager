@@ -11,7 +11,7 @@ userRouter.get("/getallusers",getAllUsers);
 userRouter.get("/getuser/:id", getUser);
 userRouter.put("/updateuser/:id",updateUser);
 userRouter.delete("/deleteuser/:id",protect,isAdmin,deleteUser);
-userRouter.patch("/updateuserrole/:id/role",updateUserrole);
+userRouter.patch("/updateuserrole/:id/role",protect,updateUserrole);
 
 
 export default userRouter;

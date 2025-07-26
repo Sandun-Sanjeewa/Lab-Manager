@@ -40,7 +40,7 @@ const LoginForm = ({ onClose }) => {
       const response = await loginUser(userFormData);
       localStorage.setItem("token", response.data.token);
       const user = jwtDecode(response.data.token);
-      user.role === "admin" ? navigate("/dashboard") : navigate("/home");
+      user.role === "superadmin" ? navigate("/dashboard") : navigate("/home");
       setUserFormData({ email: "", password: "" });
       setError({ email: "", password: "", general: "" });
       onClose();

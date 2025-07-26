@@ -37,8 +37,18 @@ export const authorizeRoles = (...roles) => {
     };
 };
 
+export const isSuperAdmin = (req, res, next) => {
+    if (req.user && req.user.role === "superadmin" ) {
+        console.log("Super admin verified:", req.user.name);
+        next();
+    } else {
+        console.warn("Super admin access denied for:", req.user?.name || "Unknown");
+        res.status(403).json({ error: "Super admin access required" });
+    }
+};
+
 export const isAdmin = (req, res, next) => {
-    if (req.user && req.user.role === "admin") {
+    if (req.user && (req.user.role === "superadmin" || req.user.role === "admin")) {
         console.log("Admin verified:", req.user.name);
         next();
     } else {
@@ -46,6 +56,39 @@ export const isAdmin = (req, res, next) => {
         res.status(403).json({ error: "Admin access required" });
     }
 };
+
+export const isAssistant = (req, res, next) => {
+    if (req.user && (req.user.role === "superadmin" || req.user.role === "admin"|| req.user.role === "assistant")) {
+        console.log("Assistant verified:", req.user.name);
+        next();
+    } else {
+        console.warn("Assistant access denied for:", req.user?.name || "Unknown");
+        res.status(403).json({ error: "Assistant access required" });
+    }
+};
+
+export const isLecturer = (req, res, next) => {
+    if (req.user && (req.user.role === "superadmin" || req.user.role === "admin"|| req.user.role === "lecturer")) {
+        console.log("Lecturer verified:", req.user.name);
+        next();
+    } else {
+        console.warn("Lecturer access denied for:", req.user?.name || "Unknown");
+        res.status(403).json({ error: "Lecturer access required" });
+    }
+};
+
+export const isTechnition = (req, res, next) => {
+    if (req.user && (req.user.role === "superadmin" || req.user.role === "admin"|| req.user.role === "technician")) {
+        console.log("Technition verified:", req.user.name);
+        next();
+    } else {
+        console.warn("Technition access denied for:", req.user?.name || "Unknown");
+        res.status(403).json({ error: "Technition access required" });
+    }
+};
+
+
+
 
 export const isSelfOrAdmin = (req, res, next) => {
     if (req.user && (req.user.role === "admin" || req.user._id.toString() === req.params.id)) {

@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 const ProtectedRoute = ({children , requiredRole}) =>{
     const token = localStorage.getItem('token');
     if(!token){
-        return <Navigate to="/login"/>
+        return <Navigate to="/landing"/>
     }
 
     try {
@@ -16,7 +16,7 @@ const ProtectedRoute = ({children , requiredRole}) =>{
 
         return children;
     } catch (error) {
-        return <Navigate to="/login"/>
+        return <Navigate to="/landing"/>
     }
 };
 

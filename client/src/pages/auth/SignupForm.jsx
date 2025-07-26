@@ -47,7 +47,7 @@ const SignupForm = ({ onClose }) => {
       const response = await signupUser(userFormData);
       localStorage.setItem("token", response.data.token);
       const user = jwtDecode(response.data.token);
-      user.role === "admin" ? navigate("/dashboard") : navigate("/home");
+      user.role === "superadmin" ? navigate("/dashboard") : navigate("/home");
       console.log("user registered", response.data);
       setUserFormData({ name: "", email: "", password: "", role: "user" });
       setError({ name: "", email: "", password: "", general: "" });
