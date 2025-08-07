@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { deleteUser, getAllUsers, updateUserrole } from "../../services/userServices.js";
 import { toast } from "react-toastify";
+import Navbar from "../../containers/Navbar.jsx";
 
 
 const DashboardPage = () => {
@@ -9,8 +10,8 @@ const DashboardPage = () => {
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState("");
     const [userToDelete, setUserToDelete] = useState(null);
-
     const [tokenReady, setTokenReady] = useState(false);
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -92,6 +93,7 @@ const DashboardPage = () => {
 
     return (
         <div className="w-full min-h-screen bg-black text-gray-100">
+            <Navbar/>
             <div className="p-4">
                 <h2 className="text-xl font-bold mb-4">Manage User Role</h2>
 
@@ -143,7 +145,7 @@ const DashboardPage = () => {
                 )}
 
                 {editingUser && (
-                    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="fixed inset-0 flex items-center justify-center  z-50">
                         <div className="bg-white text-black p-6 rounded shadow-lg w-96">
                             <h3 className="text-lg font-bold mb-4">
                                 Edit Role for {editingUser.name}
@@ -154,8 +156,12 @@ const DashboardPage = () => {
                                 onChange={(e) => setSelectedRole(e.target.value)}
                             >
                                 <option value="user">User</option>
+                                <option value="lecturer">Lecturer</option>
+                                <option value="technician">Technician</option>
+                                <option value="assistant">Assistant</option>
                                 <option value="admin">Admin</option>
                                 <option value="superadmin">SuperAdmiin</option>
+                                
                             </select>
                             <div className="flex justify-end space-x-2">
                                 <button

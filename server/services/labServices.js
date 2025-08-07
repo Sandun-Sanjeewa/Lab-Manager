@@ -30,41 +30,56 @@ export const createLab = async (data) => {
     return await lab.save();
 };
 
-export const getAllLabs = async ()=>{
-    const labs = await Lab.find();
+export const getAllLabs = async () => {
+    const labs = await Lab.find().populate("assistant", "name email");
     return labs;
 
 };
 
-export const getLab = async (labId)=>{
+export const getLab = async (labId) => {
     const lab = await Lab.findById(labId);
     return lab;
 };
 
 
-export const updateLab = async (labId,updateData)=>{
+export const updateLab = async (labId, updateData) => {
+    const { name, location } = updateData;
+    if (!name || !location) {
+        throw new Error("Name and Location are required");
+    }
+    const trimmedName = name.trim();
+
+    const existing = await Lab.findOne({
+        _id: { $ne: labId },
+        name: new RegExp(`^${trimmedName}$`, 'i')
+    });
+
+    if (existing) {
+        throw new Error("Lab name already exists");
+    }
+
     const lab = await Lab.findByIdAndUpdate(
         labId,
         updateData,
-        {new:true , runValidators:true}
+        { new: true, runValidators: true }
     );
-    if(!lab){
+    if (!lab) {
         throw new Error("Lab not found");
     }
     return lab;
 };
 
-export const deleteLab = async (labId)=>{
+export const deleteLab = async (labId) => {
     const lab = await Lab.findByIdAndDelete(labId);
-    if(!lab){
+    if (!lab) {
         throw new Error("Lab not found");
     }
 
-    return{
+    return {
         message: "Lab deleted successfully",
-        id:lab._id,
-        name:lab.name,
-        location:lab.location,
-        assistant:lab.assistant
+        id: lab._id,
+        name: lab.name,
+        location: lab.location,
+        assistant: lab.assistant
     };
 };
