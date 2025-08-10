@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 
 import { toast } from "react-toastify";
-import { getAllEquipments } from "../../services/equipmentServices";
+import { getAllEquipments } from "../../services/equipmentServices.js";
+import Modal from "../../components/Model";
+import CreateEquipmentType from "../equipment/CreateEquipmentType.jsx";
+import UpdateEquipmentType from "../equipment/UpdateEquipmentType.jsx";
+import DeleteEquipmentType from "../equipment/DeleteEquipmentType.jsx";
 
 const EquipmentTypePanel = () => {
     const [equipmentTypes, setEquipmentTypes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [tokenReady, setTokenReady] = useState(false);
     const [createEquipmentType, setCreateEquipmentType] = useState(false);
-
+    const [editingEquipmentType, setEditingEquipmentType] = useState(null);
+    const [equipmentTypeToDelete, setEquipmentTypeToDelete] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -17,6 +23,7 @@ const EquipmentTypePanel = () => {
             toast.error("you are not logged in");
         }
     }, []);
+
 
     useEffect(() => {
         if (tokenReady) {
@@ -34,6 +41,16 @@ const EquipmentTypePanel = () => {
             toast.error("Faild to fetch Equipment types");
         }
     };
+
+    const handleEditClick = (equipmentType) => {
+        setEditingEquipmentType(equipmentType);
+        setOpenModal(true);
+    };
+
+    const deleteEquipmentTypeHandle = async (equipmentType) => {
+        setEquipmentTypeToDelete(equipmentType);
+        setOpenModal(true);
+    };
     return (
         <>
             <div className="w-full h-full">
@@ -43,20 +60,62 @@ const EquipmentTypePanel = () => {
                             <button onClick={() => setCreateEquipmentType(true)} className="p-2 border-gray-800 border-2 text-gary-800 rounded-sm">
                                 New Equipment
                             </button>
+                            <Modal
+                                isOpen={createEquipmentType}
+                                onClose={() => setCreateEquipmentType(false)}
+                            >
+                                <CreateEquipmentType
+                                    onClose={() => setCreateEquipmentType(false)}
+                                    onEquipmentTypeCreated={fetchEquipmentTypes}
+                                />
+                            </Modal>
+
                         </div>
                         <div className="pt-4">
                             <table className="min-w-full table-auto border border-gray-300">
                                 <thead>
                                     <tr>
-                                        <td className="p-2 border">Equipment type</td>
+                                        <th className="p-2 border"></th>
+                                        <th className="p-2 border">Equipment type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                   {equipmentTypes.map((equipmentType)=>(
-                                    <tr key={equipmentType._id} className="align-middle">
-                                        <td className="p-2 border">{equipmentType.name}</td>
-                                    </tr>
-                                   ))} 
+                                    {equipmentTypes.map((equipmentType) => (
+                                        <tr key={equipmentType._id} className="align-middle">
+                                            <td className="p-2 border">
+                                                <div className="flex justify-around">
+                                                    <button onClick={() => handleEditClick(equipmentType)}>Edit</button>
+                                                    <Modal
+                                                        isOpen={openModal}
+                                                        onClose={() => setOpenModal(false)}
+                                                    >
+                                                        <UpdateEquipmentType
+                                                            equipmentType={editingEquipmentType}
+                                                            onClose={() => setOpenModal(false)}
+                                                            onEquipmentTypeUpdated={fetchEquipmentTypes}
+                                                        />
+                                                    </Modal>
+                                                    <button onClick={() => deleteEquipmentTypeHandle(equipmentType)}>Delete</button>
+                                                    <Modal
+                                                        isOpen={openModal}
+                                                        onClose={() => setOpenModal(false)}
+                                                    >
+                                                        <DeleteEquipmentType
+                                                            equipmentType={equipmentTypeToDelete}
+                                                            onClose={() => setOpenModal(false)}
+                                                            onEquipmentTypeDelete={fetchEquipmentTypes}
+                                                        />
+                                                    </Modal>
+                                                </div>
+                                            </td>
+                                            <td className="p-2 border ">
+                                                <div className="ml-4">
+                                                    {equipmentType.name}
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

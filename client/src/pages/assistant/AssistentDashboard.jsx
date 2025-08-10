@@ -90,7 +90,7 @@ const AssistantDashboard = () => {
                                         <tr key={lab._id} className=" align-middle">
                                             <td className="p-2 border ">
                                                 <div className="flex  justify-around" >
-                                                    <button className="" onClick={() => handleEditClick(lab)}>Edit</button>
+                                                    <button  onClick={() => handleEditClick(lab)}>Edit</button>
 
                                                     <Modal
                                                         isOpen={editingLabOpen}
@@ -177,7 +177,7 @@ const AssistantDashboard = () => {
                     </>
                 )}
 
-                <div className="w-[200px] p-4">
+                <div className="w-[300px] p-4">
                     <EquipmentTypePanel />
                 </div>
 

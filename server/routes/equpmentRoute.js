@@ -3,7 +3,7 @@ import { createEquipment, deleteEquipment, getAllEquipments, getEquipment, updat
 
 const equipmentTypeRouter = express.Router();
 
-equipmentTypeRouter.post('/createEquipment', createEquipment );
+equipmentTypeRouter.post('/createEquipmenttype', createEquipment );
 equipmentTypeRouter.get('/getAllEquipent', getAllEquipments);
 equipmentTypeRouter.get('/getEquipment/:id', getEquipment);
 equipmentTypeRouter.put('/updateEquipment/:id',updateEquipment);
