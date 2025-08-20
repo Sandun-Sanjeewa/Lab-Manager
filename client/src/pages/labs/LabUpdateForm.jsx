@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 const LabUpdateForm = ({ lab, onClose, onLabUpdated }) => {
 
     const [labCreateData, setLabCreateData] = useState({
-        name: "",
+       labname: "",
         location: "",
         assistant: ""
     });
@@ -14,7 +14,7 @@ const LabUpdateForm = ({ lab, onClose, onLabUpdated }) => {
     const [assistantId, setAssistantId] = useState("");
 
     const [error, setError] = useState({
-        name: "",
+       labname: "",
         location: "",
         assistant: "",
         general: ""
@@ -44,7 +44,7 @@ const LabUpdateForm = ({ lab, onClose, onLabUpdated }) => {
     useEffect(() => {
         if (lab) {
             setLabCreateData({
-                name: lab.name || "",
+                labname: lab.labname || "",
                 location: lab.location || "",
                 assistant: lab.assistant?._id || ""
             });
@@ -83,11 +83,11 @@ const LabUpdateForm = ({ lab, onClose, onLabUpdated }) => {
                    <label>Lab</label>
                     <input
                         type="text"
-                        name="name"
-                        value={labCreateData.name}
+                        name="labname"
+                        value={labCreateData.labname}
                         onChange={handleChange}
                         autoComplete="off"
-                        className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.name ? "border-red-400" : "border-gray-200"}`}
+                        className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.labname ? "border-red-400" : "border-gray-200"}`}
 
                     />
                 </div>

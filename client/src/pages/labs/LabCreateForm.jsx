@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const CreateLabForm = ({ onClose, onLabCreated }) => {
     const [labCreateData, setLabCreateData] = useState({
-        name: "",
+        labname: "",
         location: "",
         assistant: ""
     });
@@ -13,7 +13,7 @@ const CreateLabForm = ({ onClose, onLabCreated }) => {
     const [assistantId, setAssistantId] = useState("");
 
     const [error, setError] = useState({
-        name: "",
+        labname: "",
         location: "",
         assistant: "",
         general: ""
@@ -55,11 +55,11 @@ const CreateLabForm = ({ onClose, onLabCreated }) => {
         try {
             const res = await createLab(labCreateData);
             setLabCreateData({
-                name: "",
+                labname: "",
                 location: "",
                 assistant: assistantId
             });
-            setError({ name: "", location: "" });
+            setError({ labname: "", location: "" });
             if (onLabCreated) onLabCreated();
             toast.success("Lab created successfully!");
             onClose();
@@ -78,11 +78,11 @@ const CreateLabForm = ({ onClose, onLabCreated }) => {
                     <label>Lab name</label>
                     <input
                         type="text"
-                        name="name"
-                        value={labCreateData.name}
+                        name="labname"
+                        value={labCreateData.labname}
                         onChange={handleChange}
                         autoComplete="off"
-                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.name ? "border-red-400" : "border-gray-200"}`}
+                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.labname ? "border-red-400" : "border-gray-200"}`}
 
                     />
                 </div>

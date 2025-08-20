@@ -14,7 +14,9 @@ const EquipmentTypePanel = () => {
     const [createEquipmentType, setCreateEquipmentType] = useState(false);
     const [editingEquipmentType, setEditingEquipmentType] = useState(null);
     const [equipmentTypeToDelete, setEquipmentTypeToDelete] = useState(null);
-    const [openModal, setOpenModal] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -44,12 +46,12 @@ const EquipmentTypePanel = () => {
 
     const handleEditClick = (equipmentType) => {
         setEditingEquipmentType(equipmentType);
-        setOpenModal(true);
+        setIsEditModalOpen(true);
     };
 
     const deleteEquipmentTypeHandle = async (equipmentType) => {
         setEquipmentTypeToDelete(equipmentType);
-        setOpenModal(true);
+        setIsDeleteModalOpen(true);
     };
     return (
         <>
@@ -86,23 +88,23 @@ const EquipmentTypePanel = () => {
                                                 <div className="flex justify-around">
                                                     <button onClick={() => handleEditClick(equipmentType)}>Edit</button>
                                                     <Modal
-                                                        isOpen={openModal}
-                                                        onClose={() => setOpenModal(false)}
+                                                        isOpen={isEditModalOpen}
+                                                        onClose={() => setIsEditModalOpen(false)}
                                                     >
                                                         <UpdateEquipmentType
                                                             equipmentType={editingEquipmentType}
-                                                            onClose={() => setOpenModal(false)}
+                                                            onClose={() => setIsEditModalOpen(false)}
                                                             onEquipmentTypeUpdated={fetchEquipmentTypes}
                                                         />
                                                     </Modal>
                                                     <button onClick={() => deleteEquipmentTypeHandle(equipmentType)}>Delete</button>
                                                     <Modal
-                                                        isOpen={openModal}
-                                                        onClose={() => setOpenModal(false)}
+                                                        isOpen={isDeleteModalOpen}
+                                                        onClose={() => setIsDeleteModalOpen(false)}
                                                     >
                                                         <DeleteEquipmentType
                                                             equipmentType={equipmentTypeToDelete}
-                                                            onClose={() => setOpenModal(false)}
+                                                            onClose={() => setIsDeleteModalOpen(false)}
                                                             onEquipmentTypeDelete={fetchEquipmentTypes}
                                                         />
                                                     </Modal>
@@ -110,7 +112,7 @@ const EquipmentTypePanel = () => {
                                             </td>
                                             <td className="p-2 border ">
                                                 <div className="ml-4">
-                                                    {equipmentType.name}
+                                                    {equipmentType.equipmenttype}
                                                 </div>
 
                                             </td>
@@ -118,6 +120,9 @@ const EquipmentTypePanel = () => {
                                     ))}
                                 </tbody>
                             </table>
+                            <div>
+                                 <p className="ml-4 mt-2 text-lg">Total Equipment Types: {equipmentTypes.length}</p>
+                            </div>
                         </div>
                     </>
                 )}

@@ -1,46 +1,47 @@
-import * as equipmentServices from '../services/equipmentServices.js'
+import * as machineServices from '../services/machineServices.js';
 
-export const createEquipment = async (req,res)=>{
+
+export const createMachine = async (req,res) =>{
     try {
-        const equipment = await equipmentServices.createEquipment(req.body);
-        res.status(201).json(equipment);
+        const machine = await machineServices.createMachine(req.body);
+        res.status(201).json(machine);
     } catch (error) {
         res.status(400).json({error: error.message});
     }
 };
 
-export const getAllEquipments = async (req,res)=>{
+export const getAllMachines = async(req,res) =>{
     try {
-        const equipments = await equipmentServices.getAllEquipments();
-        res.status(200).json(equipments);
+        const machines = await machineServices.getAllMachines();
+        res.status(200).json(machines);
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error:error.message});
     }
 };
 
-export const getEquipment = async (req,res)=>{
+export const getMachine = async(req,res) =>{
     try {
-        const equipment = await equipmentServices.getEquipment(req.params.id);
-        res.status(200).json(equipment);
+        const machine = await machineServices.getMachine(req.params.id);
+        res.status(200).json(machine);
     } catch (error) {
-        res.status(404).json({error: error.message});
+        res.status(400).json({error:error.message});
     }
 };
 
-export const updateEquipment = async (req,res)=>{
+export const updateMachine = async(req,res) =>{
     try {
-        const updatedEquipment = await equipmentServices.updateEquipment(req.params.id, req.body);
-        res.status(200).json(updatedEquipment);
+        const updatedMachine = await machineServices.updateMachine(req.params.id, req.body);
+        res.status(200).json(updatedMachine);
     } catch (error) {
-        res.status(404).json({error: error.message});
+        res.status(400).json({error:error.message});
     }
 };
 
-export const deleteEquipment = async (req,res) =>{
+export const deleteMachine = async(req,res)=>{
     try {
-        const deletedEquipment = await equipmentServices.deleteEquipment(req.params.id);
-        res.status(200).json(deletedEquipment);
+        const deletedMachine = await machineServices.deleteMachine(req.params.id)
+        res.status(200).json(deletedMachine);
     } catch (error) {
-        res.status(404).json({error: error.message});
+        res.status(400).json({error:error.message});
     }
 };

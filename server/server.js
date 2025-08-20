@@ -5,7 +5,9 @@ import morgan from 'morgan';
 import connectDB from './config/db.js';
 import userRouter from './routes/userRoutes.js';
 import labrouter from './routes/labRoute.js';
-import equipmentTypeRouter from './routes/equpmentRoute.js';
+import equipmentTypeRouter from './routes/equpmentTypeRoute.js';
+import equipmentRouter from './routes/equipmentRoute.js';
+
 
 
 dotenv.config();
@@ -25,8 +27,13 @@ if(process.env.NODE_ENV === 'development'){
 app.use("/api/user",userRouter);
 app.use("/api/lab", labrouter);
 app.use("/api/equipment" , equipmentTypeRouter);
+app.use("/api/equipment", equipmentRouter);
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log(`Server running on ${process.env.NODE_ENV} mode on port ${PORT}`);
 });
+
+
+

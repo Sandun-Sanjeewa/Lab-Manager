@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { updateEquipmentType } from "../../services/equipmentServices";
 import { toast } from "react-toastify";
+import { updateEquipmentType } from "../../services/equipmentServices.js";
 
 const UpdateEquipmentType = ({ equipmentType, onClose, onEquipmentTypeUpdated }) => {
     const [equipmentUpdateData, setEquipmentUpdateData] = useState({
-        name: ""
+        equipmenttype: ""
     });
 
     const [error, setError] = useState({
-        name: "",
+        equipmenttype: "",
         general: ""
     });
 
@@ -28,7 +28,7 @@ const UpdateEquipmentType = ({ equipmentType, onClose, onEquipmentTypeUpdated })
     useEffect(() => {
         if (equipmentType) {
             setEquipmentUpdateData({
-                name: equipmentType.name || ""
+                equipmenttype: equipmentType.equipmenttype || ""
             })
         }
     }, [equipmentType]);
@@ -66,11 +66,11 @@ const UpdateEquipmentType = ({ equipmentType, onClose, onEquipmentTypeUpdated })
                     </label>
                     <input
                         type="text"
-                        name="name"
-                        value={equipmentUpdateData.name}
+                        name="equipmenttype"
+                        value={equipmentUpdateData.equipmenttype}
                         onChange={handleChange}
                         autoComplete="off"
-                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.name ? "border-red-400" : "border-gray-200"}`}
+                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.equipmenttype ? "border-red-400" : "border-gray-200"}`}
 
                     />
                     <div className="flex justify-end ">

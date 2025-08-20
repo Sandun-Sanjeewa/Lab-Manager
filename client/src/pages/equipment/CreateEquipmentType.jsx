@@ -4,11 +4,11 @@ import { toast } from "react-toastify";
 
 const CreateEquipmentType = ({ onClose, onEquipmentTypeCreated }) => {
     const [equipmentTypeData, setEquipmentTypeData] = useState({
-        name: ""
+        equipmenttype: ""
     });
 
     const [error, setError] = useState({
-        name: "",
+        equipmenttype: "",
         general: ""
     });
 
@@ -30,8 +30,8 @@ const CreateEquipmentType = ({ onClose, onEquipmentTypeCreated }) => {
         try {
 
             const res = await createEquipmentType(equipmentTypeData);
-            setEquipmentTypeData({ name: "" });
-            setError({ name: "" });
+            setEquipmentTypeData({ equipmenttype: "" });
+            setError({ equipmenttype: "" });
             if (onEquipmentTypeCreated) onEquipmentTypeCreated();
             toast.success("Equipment type is created successfully");
             onClose();
@@ -51,11 +51,11 @@ const CreateEquipmentType = ({ onClose, onEquipmentTypeCreated }) => {
                     </label>
                     <input
                         type="text"
-                        name="name"
-                        value={equipmentTypeData.name}
+                        name="equipmenttype"
+                        value={equipmentTypeData.equipmenttype}
                         onChange={handleChange}
                         autoComplete="off"
-                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.name ? "border-red-400" : "border-gray-200"}`}
+                        className={`text-gray-700 text-sm border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.equipmenttype ? "border-red-400" : "border-gray-200"}`}
 
                     />
                     <div className="flex justify-end ">

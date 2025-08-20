@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const labSchema = new mongoose.Schema({
-    name:{
+    labname:{
         type:String,
         required:true,
         unique:true

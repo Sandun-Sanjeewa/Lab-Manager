@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const equipmentTypeSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-        unique:true
+    equipmenttype: {
+        type: String,
+        required: true,
+        unique: true
     }
-},{ timestamps: true });
+}, { timestamps: true });
 
-const Equipment = mongoose.model('Equipment', equipmentTypeSchema);
-export default Equipment;
+const EquipmentType = mongoose.model('EquipmentType', equipmentTypeSchema);
+export default EquipmentType;

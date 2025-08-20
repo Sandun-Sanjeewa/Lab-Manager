@@ -7,6 +7,7 @@ import CreateLabForm from "../labs/LabCreateForm";
 import LabUpdateForm from "../labs/LabUpdateForm";
 import LabDelete from "../labs/LabDelete";
 import EquipmentTypePanel from "./EquipmentTypePanel";
+import MachineTable from "../equipment/machine/MachineTable";
 
 const AssistantDashboard = () => {
     const [labs, setLabs] = useState([]);
@@ -120,7 +121,7 @@ const AssistantDashboard = () => {
                                             <td className="p-2 border ">
 
                                                 <div className="pl-4">
-                                                    {lab.name}
+                                                    {lab.labname}
                                                 </div>
                                                 {/* <div >
                                                         <button className="mr-4" onClick={() => handleEditClick(lab)}>Edit</button>
@@ -179,6 +180,9 @@ const AssistantDashboard = () => {
 
                 <div className="w-[300px] p-4">
                     <EquipmentTypePanel />
+                </div>
+                <div className="w-[300px] p-4">
+                    <MachineTable/>
                 </div>
 
             </div>

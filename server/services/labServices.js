@@ -2,16 +2,17 @@ import Lab from "../models/labModel.js";
 import User from "../models/userModel.js";
 
 export const createLab = async (data) => {
-    const { name, location, assistant } = data;
+    const { labname, location, assistant } = data;
 
-    if (!name || !location || !assistant) {
+    if (!labname || !location || !assistant) {
         throw new Error("All fields are required");
     }
 
-    const trimmedName = name.trim();
+    const trimmedName = labname.trim().replace(/\s+/g, "");
     const trimmedLocation = location.trim();
+    
 
-    const existing = await Lab.findOne({ name: new RegExp(`^${trimmedName}$`, 'i') });
+    const existing = await Lab.findOne({ labname: new RegExp(`^${trimmedName}$`, 'i') });
     if (existing) {
         throw new Error("Lab name already exists");
     }
@@ -22,7 +23,7 @@ export const createLab = async (data) => {
     }
 
     const lab = new Lab({
-        name: trimmedName,
+        labname: trimmedName,
         location: trimmedLocation,
         assistant
     });
@@ -43,15 +44,15 @@ export const getLab = async (labId) => {
 
 
 export const updateLab = async (labId, updateData) => {
-    const { name, location } = updateData;
-    if (!name || !location) {
+    const { labname, location } = updateData;
+    if (!labname || !location) {
         throw new Error("Name and Location are required");
     }
-    const trimmedName = name.trim();
+    const trimmedName = labname.trim();
 
     const existing = await Lab.findOne({
         _id: { $ne: labId },
-        name: new RegExp(`^${trimmedName}$`, 'i')
+        labname: new RegExp(`^${trimmedName}$`, 'i')
     });
 
     if (existing) {
@@ -78,8 +79,10 @@ export const deleteLab = async (labId) => {
     return {
         message: "Lab deleted successfully",
         id: lab._id,
-        name: lab.name,
+        labname: lab.labname,
         location: lab.location,
         assistant: lab.assistant
     };
 };
+
+
