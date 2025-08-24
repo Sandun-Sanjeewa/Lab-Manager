@@ -34,7 +34,7 @@ const Navbar = ({ className }) => {
     return (
         <>
             <header>
-                <nav className={`sticky top-0 bg-transparent shadow-md z-50 ${className}`}>
+               <nav className={`fixed top-0 left-0 w-full bg-black shadow-md z-50 ${className}`}>
                     <div className="max-w-7xl mx-auto px-2 py-3 flex justify-between items-center">
                         <div>
                             <Link to="/home">My LabManager</Link>
