@@ -3,7 +3,10 @@ import { jwtDecode } from "jwt-decode";
 import { createLab } from "../../services/labServices";
 import { toast } from "react-toastify";
 
+
 const CreateLabForm = ({ onClose, onLabCreated }) => {
+  
+
     const [labCreateData, setLabCreateData] = useState({
         labname: "",
         location: "",

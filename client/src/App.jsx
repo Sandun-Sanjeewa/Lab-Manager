@@ -9,25 +9,30 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LabDashboard from "./pages/labs/LabDashboard.jsx";
 import AssistantDashboard from "./pages/assistant/AssistentDashboard.jsx";
+import { LabProvider } from "./context/LabContext.jsx";
+import { UserProvider } from "./context/UserContext.jsx";
 
 
 function App() {
   return (
     <>
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<LandingPage/>}/>
-      <Route path="/about" element={<About/>} />
-      <Route path="/unauthorized" element={<NotFoundedPage/>}/>
-      <Route path="/home" element={<ProtectedRoute><HomePage/></ProtectedRoute> }/>
-      <Route path="/dashboard" element={<ProtectedRoute requiredRole="superadmin"><DashboardPage/></ProtectedRoute> }/>
-      <Route path="/landing" element={<LandingPage/>}/>
-      <Route path="/labdashboard" element={<LabDashboard/>} /> 
-      <Route path="/assistantdashboard" element={<AssistantDashboard/>} /> 
-    </Routes>
-      
-    </BrowserRouter>
-    <ToastContainer position="top-center" autoClose={2000} />
+      <UserProvider>
+        <LabProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/unauthorized" element={<NotFoundedPage />} />
+              <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute requiredRole="superadmin"><DashboardPage /></ProtectedRoute>} />
+              <Route path="/landing" element={<LandingPage />} />
+              <Route path="/labdashboard" element={<LabDashboard />} />
+              <Route path="/assistantdashboard" element={<AssistantDashboard />} />
+            </Routes>
+          </BrowserRouter>
+          <ToastContainer position="top-center" autoClose={2000} />
+        </LabProvider>
+      </UserProvider>
     </>
   )
 }

@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { deleteUser, getAllUsers, updateUserrole } from "../../services/userServices.js";
+import { deleteUser, updateUserrole } from "../../services/userServices.js";
 import { toast } from "react-toastify";
 import Navbar from "../../containers/Navbar.jsx";
+import { useUsers } from "../../context/UserContext.jsx";
+
 
 
 const DashboardPage = () => {
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { users, setUsers, fetchUsers,  loading: usersLoading  } = useUsers();
+
+    // const [users, setUsers] = useState([]);
+    //const [loading, setLoading] = useState(true);
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState("");
     const [userToDelete, setUserToDelete] = useState(null);
-    const [tokenReady, setTokenReady] = useState(false);
-
+       const [tokenReady, setTokenReady] = useState(false);
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
@@ -23,22 +26,38 @@ const DashboardPage = () => {
 
     useEffect(() => {
         if (tokenReady) {
-            fetchUser();
+            fetchUsers();
         }
     }, [tokenReady]);
+   // const [tokenReady, setTokenReady] = useState(false);
 
-    const fetchUser = async () => {
-        try {
-            const res = await getAllUsers();
-            setUsers(res.data);
-            setLoading(false);
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (token) {
+    //         setTokenReady(true);
+    //     } else {
+    //         toast.error("You are not logged in.");
+    //     }
+    // }, []);
 
-        } catch (error) {
-            console.error(error);
-            setLoading(false);
-            toast.error("Failed to fetch users");
-        }
-    };
+    // useEffect(() => {
+    //     if (tokenReady) {
+    //         fetchUser();
+    //     }
+    // }, [tokenReady]);
+
+    // const fetchUser = async () => {
+    //     try {
+    //         const res = await getAllUsers();
+    //         setUsers(res.data);
+    //         setLoading(false);
+
+    //     } catch (error) {
+    //         console.error(error);
+    //         setLoading(false);
+    //         toast.error("Failed to fetch users");
+    //     }
+    // };
 
     const handleEditClick = (user) => {
         if (user.role === "superadmin") {
@@ -97,7 +116,7 @@ const DashboardPage = () => {
             <div className="p-4">
                 <h2 className="text-xl font-bold mb-4">Manage User Role</h2>
 
-                {loading ? (
+                {usersLoading ? (
                     <p>Loading users...</p>
                 ) : users.length === 0 ? (
                     <p>No users found.</p>
@@ -160,7 +179,7 @@ const DashboardPage = () => {
                                 <option value="technician">Technician</option>
                                 <option value="assistant">Assistant</option>
                                 <option value="admin">Admin</option>
-                                <option value="superadmin">SuperAdmiin</option>
+                                <option value="superadmin">SuperAdmin</option>
                                 
                             </select>
                             <div className="flex justify-end space-x-2">

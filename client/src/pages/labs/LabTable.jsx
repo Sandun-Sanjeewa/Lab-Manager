@@ -1,60 +1,64 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Modal from "../../components/Model";
 import { getAllLabs } from "../../services/labServices";
 import CreateLabForm from "./LabCreateForm";
 import LabDelete from "./LabDelete";
 import LabUpdateForm from "./LabUpdateForm";
+import { useLabs } from "../../context/LabContext";
+
 
 const LabTable = () => {
-    const [labs, setLabs] = useState([]);
-    const [loading, setLoading] = useState(true);
+     const { labs, fetchLabs, loading: labsLoading  } = useLabs();
+    // const [labs, setLabs] = useState([]);
+    // const [loading, setLoading] = useState(true);
     const [isCreateLabOpen, setIsCreateLab] = useState(false);
     const [editingLabOpen, setEditingLabOpen] = useState(null);
     const [editingLabData, setEditingLabData] = useState(null);
     const [selecetedLab, setSelectedLab] = useState("");
     const [labToDelete, setLabToDelete] = useState(null);
-    const [tokenRady, setTokenReady] = useState(false);
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            setTokenReady(true);
-        } else {
-            toast.error("you are not logged in.")
-        }
-    }, []);
-    useEffect(() => {
-        if (tokenRady) {
-            fetchLab();
-        }
-    }, [tokenRady]);
+    // const [tokenRady, setTokenReady] = useState(false);
+   
+    // useEffect(() => {
+    //     const token = localStorage.getItem("token");
+    //     if (token) {
+    //         setTokenReady(true);
+    //     } else {
+    //         toast.error("you are not logged in.")
+    //     }
+    // }, []);
+    // useEffect(() => {
+    //     if (tokenRady) {
+    //         fetchLabs();
+    //     }
+    // }, [tokenRady]);
 
-    const fetchLab = async () => {
-        try {
-            const res = await getAllLabs();
-            setLabs(res.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-            setLoading(false);
-            toast.error("Failed to fetch labs");
-        }
-    };
+    // const fetchLab = async () => {
+    //     try {
+    //         const res = await getAllLabs();
+    //         setLabs(res.data);
+    //         setLoading(false);
+    //     } catch (error) {
+    //         console.error(error);
+    //         setLoading(false);
+    //         toast.error("Failed to fetch labs");
+    //     }
+    // };
 
     const handleEditClick = (lab) => {
         setEditingLabData(lab);
         setEditingLabOpen(true);
     };
 
-      const deleteLabHandle = async (lab) => {
+    const deleteLabHandle = async (lab) => {
         setLabToDelete(lab);
         setSelectedLab(true);
     };
 
     return (
         <>
-        <div  className="w-full h-full">
-{loading ? (<p>Loading users...</p>) : (
+            <div className="w-full h-full">
+                {labsLoading ? (<p>Loading users...</p>) : (
                     <>
                         <div className="ml-4 mt-2">
                             <button onClick={() => setIsCreateLab(true)} className="p-2 border-gray-800 border-2 text-gary-800 rounded-sm">Create lab</button>
@@ -63,7 +67,7 @@ const LabTable = () => {
                                 onClose={() => setIsCreateLab(false)}
                                 title=""
                             >
-                                <CreateLabForm onClose={() => setIsCreateLab(false)} onLabCreated={fetchLab} />
+                                <CreateLabForm onClose={() => setIsCreateLab(false)} onLabCreated={fetchLabs} />
                             </Modal>
                         </div>
                         <div className="p-4">
@@ -82,7 +86,7 @@ const LabTable = () => {
                                         <tr key={lab._id} className=" align-middle">
                                             <td className="p-2 border ">
                                                 <div className="flex  justify-around" >
-                                                    <button  onClick={() => handleEditClick(lab)}>Edit</button>
+                                                    <button onClick={() => handleEditClick(lab)}>Edit</button>
 
                                                     <Modal
                                                         isOpen={editingLabOpen}
@@ -91,7 +95,7 @@ const LabTable = () => {
                                                         <LabUpdateForm
                                                             lab={editingLabData}
                                                             onClose={() => setEditingLabOpen(false)}
-                                                            onLabUpdated={fetchLab}
+                                                            onLabUpdated={fetchLabs}
                                                         />
                                                     </Modal>
                                                     <button onClick={() => deleteLabHandle(lab)}>Delete</button>
@@ -102,7 +106,7 @@ const LabTable = () => {
                                                         <LabDelete
                                                             lab={labToDelete}
                                                             onClose={() => setSelectedLab(false)}
-                                                            onLabDelete={fetchLab}
+                                                            onLabDelete={fetchLabs}
                                                         />
                                                     </Modal>
 
@@ -139,7 +143,7 @@ const LabTable = () => {
                         </div>
                     </>
                 )}
-        </div>
+            </div>
 
         </>
     );

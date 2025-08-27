@@ -2,20 +2,15 @@ import Navbar from "../../containers/Navbar";
 import MachineTable from "../equipment/machine/MachineTable";
 import EquipmentTypeTable from "../equipment/EquipmentTypeTable";
 import LabTable from "../labs/LabTable";
+import LabDashboard from "../labs/LabDashboard";
 
 const AssistantDashboard = () => {
 
-
-
-
-
-
-
-
-
-
     return (
         <>
+        
+        
+        <LabDashboard/>
 
             <div className="w-full min-h-screen bg-black text-gray-100">
                 <div>
