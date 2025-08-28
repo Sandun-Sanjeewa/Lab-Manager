@@ -2,13 +2,14 @@ import mongoose from "mongoose";
 import Equipment from "./equipmentModel.js";
 
 const monitorSchema = new mongoose.Schema({
-  specs: {
     monitorID: {
       type: String,
       required: true,
       unique: true
 
     },
+
+  specs: {
     resolution: {
       type: String,
       required: true

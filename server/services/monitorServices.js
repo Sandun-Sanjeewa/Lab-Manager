@@ -1,12 +1,12 @@
-import {Monitor} from "../models/equipment/labEquipment.js";
-import EquipmentType from "../models/equipmentTypeModel";
-import Lab from "../models/labModel";
+import {Equipment,Monitor} from "../models/equipment/labEquipment.js";
+import EquipmentType from "../models/equipmentTypeModel.js";
+import Lab from "../models/labModel.js";
 
 
 
 export const createMonitor = async (data) =>{
-    const{lab, equipmentType,brand,status,addDate, monitorID,resolution,size,refreshRate} = data;
-    if (lab|| equipmentType||brand || monitorID||resolution||size||refreshRate){
+    const{monitorID,lab, equipmentType,brand,status,addDate,resolution,size,refreshRate} = data;
+    if (!lab|| !equipmentType || !brand || !monitorID|| !resolution|| !size|| !refreshRate){
         throw new Error("All fields are required");
     };
 
