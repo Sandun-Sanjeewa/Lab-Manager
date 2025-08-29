@@ -12,7 +12,7 @@ const AssistantDashboard = () => {
         
         <LabDashboard/>
 
-            {/* <div className="w-full min-h-screen bg-black text-gray-100">
+            <div className="w-full min-h-screen bg-black text-gray-100">
                 <div>
                     <Navbar />
                 </div>
@@ -28,7 +28,7 @@ const AssistantDashboard = () => {
                     <LabTable />
                 </div>
 
-            </div> */}
+            </div>
 
         </>
     );

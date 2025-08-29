@@ -5,9 +5,9 @@ import Lab from "../models/labModel.js";
 
 
 export const createMachine = async (data) => {
-    const { machineID, lab, equipmentType, brand, status, addDate, os, ram, processor } = data;
+    const { machineID, lab, equipmentType, brand, status, addDate, os, ram, processor,storage } = data;
 
-    if (!machineID || !lab || !equipmentType || !brand || !os || !ram || !processor) {
+    if (!machineID || !lab || !equipmentType || !brand || !os || !ram || !processor || !storage) {
         throw new Error("All fields are required");
     }
 
@@ -39,7 +39,8 @@ export const createMachine = async (data) => {
         specs: {
             os,
             ram,
-            processor
+            processor,
+            storage
         }
     });
 
@@ -65,7 +66,7 @@ export const getMachine = async (machineId) => {
 
 
 export const updateMachine = async (machineId, updateData) => {
-    const { lab, equipmentType, brand, status, addDate, machineID, os, ram, processor, specs } = updateData;
+    const { lab, equipmentType, brand, status, addDate, machineID, os, ram, processor,storage, specs } = updateData;
 
     const updateFields = {
         ...(lab && { lab }),
@@ -80,10 +81,12 @@ export const updateMachine = async (machineId, updateData) => {
         if (specs.os) updateFields["specs.os"] = specs.os;
         if (specs.ram) updateFields["specs.ram"] = specs.ram;
         if (specs.processor) updateFields["specs.processor"] = specs.processor;
+        if (specs.storage) updateFields["specs.storage"] = specs.storage;
     } else {
         if (os) updateFields["specs.os"] = os;
         if (ram) updateFields["specs.ram"] = ram;
         if (processor) updateFields["specs.processor"] = processor;
+        if (storage) updateFields["specs.storage"] = storage;
     }
 
     const updatedMachine = await Machine.findByIdAndUpdate(

@@ -5,8 +5,7 @@ const machineSchema = new mongoose.Schema({
      machineID : {
             type: String,
             required: true,
-            unique: true
-            
+            unique: true 
         },
         
     specs: {
@@ -19,6 +18,10 @@ const machineSchema = new mongoose.Schema({
             required: true
         },
         processor:{
+            type: String,
+            required: true
+        },
+        storage: {
             type: String,
             required: true
         }

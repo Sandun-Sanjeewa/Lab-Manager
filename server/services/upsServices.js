@@ -3,8 +3,8 @@ import EquipmentType from "../models/equipmentTypeModel.js";
 import Lab from "../models/labModel.js";
 
 export const createUps = async(data)=>{
-    const{lab, equipmentType,brand,status,addDate,upsID,capacity,batteryType}=data;
-    if(!lab || !equipmentType || !brand || !upsID || !capacity || !batteryType){
+    const{lab, equipmentType,brand,status,addDate,upsID,capacity,batteryHealth}=data;
+    if(!lab || !equipmentType || !brand || !upsID || !capacity || !batteryHealth){
         throw new Error ("All fields are required");
     }
 
@@ -33,7 +33,7 @@ export const createUps = async(data)=>{
         addDate,
         specs: {
            capacity,
-           batteryType
+           batteryHealth
         }
     });
 
@@ -56,7 +56,7 @@ export const getUps = async (upsId) => {
 };
 
 export const updateUps = async (upsId,updateData)=>{
-     const{lab, equipmentType,brand,status,addDate, upsID,capacity, batteryType,specs} = updateData;
+     const{lab, equipmentType,brand,status,addDate, upsID,capacity, batteryHealth,specs} = updateData;
       const updateFields = {
         ...(lab && { lab }),
         ...(equipmentType && { equipmentType }),
@@ -68,11 +68,11 @@ export const updateUps = async (upsId,updateData)=>{
 
      if (specs) {
         if (specs.capacity) updateFields["specs.capacity"] = specs.capacity;
-        if (specs.batteryType) updateFields["specs.batteryType"] = specs. batteryType;
+        if (specs.batteryHealth) updateFields["specs.batteryHealth"] = specs. batteryHealth;
        
     } else {
         if (capacity) updateFields["specs.capacity"] = capacity;
-        if ( batteryType) updateFields["specs.batteryType"] =  batteryType;
+        if ( batteryHealth) updateFields["specs.batteryHealth"] =  batteryHealth;
        
     }
 

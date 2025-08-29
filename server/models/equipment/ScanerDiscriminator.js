@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import Equipment from "./equipmentModel.js";
 
-const projectorSchema = new mongoose.Schema({
-      projectorID: {
+const scanerSchema = new mongoose.Schema({
+    scanerID: {
         type: String,
         required: true,
         unique: true
@@ -13,5 +13,5 @@ const projectorSchema = new mongoose.Schema({
     }
 });
 
-const Projector = Equipment.discriminator('Projector', projectorSchema);
-export default Projector;
+const Scaner = Equipment.discriminator('Scaner', scanerSchema);
+export default Scaner;

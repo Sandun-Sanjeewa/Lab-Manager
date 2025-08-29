@@ -1,26 +1,26 @@
-import {Equipment,Monitor} from "../models/equipment/labEquipment.js";
+import { Equipment, Monitor } from "../models/equipment/labEquipment.js";
 import EquipmentType from "../models/equipmentTypeModel.js";
 import Lab from "../models/labModel.js";
 
 
 
-export const createMonitor = async (data) =>{
-    const{monitorID,lab, equipmentType,brand,status,addDate,resolution,size,refreshRate} = data;
-    if (!lab|| !equipmentType || !brand || !monitorID|| !resolution|| !size|| !refreshRate){
+export const createMonitor = async (data) => {
+    const { monitorID, lab, equipmentType, brand, status, addDate, resolution, size, refreshRate } = data;
+    if (!lab || !equipmentType || !brand || !monitorID || !resolution || !size || !refreshRate) {
         throw new Error("All fields are required");
     };
 
-     const trimmedMonitorID = monitorID.trim().replace(/\s+/g, "");
-     const existingMonitor = await Monitor.findOne({monitorID:new RegExp(`^${trimmedMonitorID}$`, 'i')});
-     if(existingMonitor){
-       throw new Error("MonitorID is already exists") ;
-     }
-       const existingLab = await Lab.findById(lab);
+    const trimmedMonitorID = monitorID.trim().replace(/\s+/g, "");
+    const existingMonitor = await Monitor.findOne({ monitorID: new RegExp(`^${trimmedMonitorID}$`, 'i') });
+    if (existingMonitor) {
+        throw new Error("MonitorID is already exists");
+    }
+    const existingLab = await Lab.findById(lab);
     if (!existingLab) {
         throw new Error("Monitor Should have the Lab");
     }
 
-     const existingEquipmentType = await EquipmentType.findById(equipmentType);
+    const existingEquipmentType = await EquipmentType.findById(equipmentType);
     if (!existingEquipmentType) {
         throw new Error("Monitor Should have the Equipment type");
     }
@@ -57,9 +57,9 @@ export const getMonitor = async (monitorId) => {
     return monitor;
 };
 
-export const updateMonitor = async (monitorId,updateData)=>{
-     const{lab, equipmentType,brand,status,addDate, monitorID,resolution,size,refreshRate,specs} = updateData;
-      const updateFields = {
+export const updateMonitor = async (monitorId, updateData) => {
+    const { lab, equipmentType, brand, status, addDate, monitorID, resolution, size, refreshRate, specs } = updateData;
+    const updateFields = {
         ...(lab && { lab }),
         ...(equipmentType && { equipmentType }),
         ...(brand && { brand }),
@@ -68,7 +68,7 @@ export const updateMonitor = async (monitorId,updateData)=>{
         ...(monitorID && { monitorID: monitorID.trim().replace(/\s+/g, "") }),
     };
 
-     if (specs) {
+    if (specs) {
         if (specs.resolution) updateFields["specs.resolution"] = specs.resolution;
         if (specs.size) updateFields["specs.size"] = specs.size;
         if (specs.refreshRate) updateFields["specs.refreshRate"] = specs.refreshRate;
@@ -78,7 +78,7 @@ export const updateMonitor = async (monitorId,updateData)=>{
         if (refreshRate) updateFields["specs.refreshRate"] = refreshRate;
     }
 
-      const updatedMonitor = await Monitor.findByIdAndUpdate(
+    const updatedMonitor = await Monitor.findByIdAndUpdate(
         monitorId,
         updateFields,
         { new: true }
@@ -90,14 +90,14 @@ export const updateMonitor = async (monitorId,updateData)=>{
 
 };
 
-export const deleteMonitor = async(monitorId)=>{
+export const deleteMonitor = async (monitorId) => {
     const monitor = await Monitor.findByIdAndDelete(monitorId);
-    if(!monitorId){
-        throw new Error ("Monitor is not found");
+    if (!monitorId) {
+        throw new Error("Monitor is not found");
     }
 
     return {
-        message:"Monitor deleted successfully"
+        message: "Monitor deleted successfully"
     };
 };
 
