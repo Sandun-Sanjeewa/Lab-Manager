@@ -1,8 +1,10 @@
 import Card from "../../components/card";
+import { useEquipmentType } from "../../context/equipmentContext/EquipmentTypeContext";
 import { useLabs } from "../../context/LabContext";
 import { useUsers } from "../../context/UserContext";
 const LabDashboard = () => {
     const { labs, loading: labsLoading } = useLabs();
+    const {equipmentTypes} = useEquipmentType();
     const {users} = useUsers();
     const assistantsCount = users.filter(u => u.role === "assistant").length;
 
@@ -43,8 +45,8 @@ const LabDashboard = () => {
                         <Card 
                         CardClass={"bg-gray-200 rounded-md md:h-[150px] h-[100px] shadow-sm"} 
                         TopicClass={"bg-white h-full rounded-md  md:p-4"} 
-                        topic={"Total Equipments"} 
-                        content={assistantsCount}
+                        topic={"Total Equipment types"} 
+                        content={equipmentTypes.length}
                         />
                         <Card 
                         CardClass={"bg-gray-200 rounded-md md:h-[150px] h-[100px] shadow-sm"} 

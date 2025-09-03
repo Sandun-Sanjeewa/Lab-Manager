@@ -5,10 +5,12 @@ import CreateEquipmentType from "./CreateEquipmentType";
 import Modal from "../../components/Model";
 import UpdateEquipmentType from "./UpdateEquipmentType";
 import DeleteEquipmentType from "./DeleteEquipmentType";
+import { useEquipmentType } from "../../context/equipmentContext/EquipmentTypeContext";
 
 const EquipmentTypeTable = () => {
-    const [equipmentTypes, setEquipmentTypes] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const {equipmentTypes,setEquipmentTypes,fetchEquipmentTypes,loading: equipmentsLoading}=useEquipmentType();
+    //const [equipmentTypes, setEquipmentTypes] = useState([]);
+   // const [loading, setLoading] = useState(true);
     const [tokenReady, setTokenReady] = useState(false);
     const [createEquipmentType, setCreateEquipmentType] = useState(false);
     const [editingEquipmentType, setEditingEquipmentType] = useState(null);
@@ -27,21 +29,21 @@ const EquipmentTypeTable = () => {
 
     useEffect(() => {
         if (tokenReady) {
-            fetchEquipmentTypes();
+           fetchEquipmentTypes();
         }
     }, [tokenReady]);
 
-    const fetchEquipmentTypes = async () => {
-        try {
-            const res = await getAllEquipments();
-            setEquipmentTypes(res.data);
-            setLoading(false);
-        } catch (error) {
-            console.error(error);
-            setLoading(false);
-            toast.error("Faild to fetch Equipment types");
-        }
-    };
+    // const fetchEquipmentTypes = async () => {
+    //     try {
+    //         const res = await getAllEquipments();
+    //         setEquipmentTypes(res.data);
+    //         setLoading(false);
+    //     } catch (error) {
+    //         console.error(error);
+    //         setLoading(false);
+    //         toast.error("Faild to fetch Equipment types");
+    //     }
+    // };
 
     const handleEditClick = (equipmentType) => {
         setEditingEquipmentType(equipmentType);
@@ -56,7 +58,7 @@ const EquipmentTypeTable = () => {
     return(
         <>
             <div className="w-full h-full">
-                {loading ? (<p>Loading Equipment Types</p>) : (
+                {equipmentsLoading ? (<p>Loading Equipment Types</p>) : (
                     <>
                         <div className=" ">
                             <button onClick={() => setCreateEquipmentType(true)} className="p-2 border-gray-800 border-2 text-gary-800 rounded-sm">

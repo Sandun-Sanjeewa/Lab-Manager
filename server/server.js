@@ -26,7 +26,7 @@ if(process.env.NODE_ENV === 'development'){
 
 app.use("/api/user",userRouter);
 app.use("/api/lab", labrouter);
-app.use("/api/equipment" , equipmentTypeRouter);
+app.use("/api/equipment-type" , equipmentTypeRouter);
 app.use("/api/equipment", equipmentRouter);
 
 

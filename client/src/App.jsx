@@ -11,6 +11,9 @@ import LabDashboard from "./pages/labs/LabDashboard.jsx";
 import AssistantDashboard from "./pages/assistant/AssistentDashboard.jsx";
 import { LabProvider } from "./context/LabContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
+import { MachineProvider } from "./context/equipmentContext/MachineContext.jsx";
+import { EquipmentTypeProvider } from "./context/equipmentContext/EquipmentTypeContext.jsx";
+import { EquipmentProvider } from "./context/equipmentContext/EquipmentContext.jsx";
 
 
 function App() {
@@ -18,19 +21,23 @@ function App() {
     <>
       <UserProvider>
         <LabProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/unauthorized" element={<NotFoundedPage />} />
-              <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-              <Route path="/dashboard" element={<ProtectedRoute requiredRole="superadmin"><DashboardPage /></ProtectedRoute>} />
-              <Route path="/landing" element={<LandingPage />} />
-              <Route path="/labdashboard" element={<LabDashboard />} />
-              <Route path="/assistantdashboard" element={<AssistantDashboard />} />
-            </Routes>
-          </BrowserRouter>
-          <ToastContainer position="top-center" autoClose={2000} />
+          <EquipmentTypeProvider>
+            <EquipmentProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/unauthorized" element={<NotFoundedPage />} />
+                  <Route path="/home" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+                  <Route path="/dashboard" element={<ProtectedRoute requiredRole="superadmin"><DashboardPage /></ProtectedRoute>} />
+                  <Route path="/landing" element={<LandingPage />} />
+                  <Route path="/labdashboard" element={<LabDashboard />} />
+                  <Route path="/assistantdashboard" element={<AssistantDashboard />} />
+                </Routes>
+              </BrowserRouter>
+              <ToastContainer position="top-center" autoClose={2000} />
+            </EquipmentProvider>
+          </EquipmentTypeProvider>
         </LabProvider>
       </UserProvider>
     </>

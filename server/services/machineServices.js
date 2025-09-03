@@ -102,7 +102,7 @@ export const updateMachine = async (machineId, updateData) => {
 
 export const deleteMachine = async(machineId)=>{
     const machine = await Machine.findByIdAndDelete(machineId);
-    if(!machineId){
+    if(machine){
         throw new Error ("Machine is not found");
     }
 
