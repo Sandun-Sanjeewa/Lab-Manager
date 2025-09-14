@@ -1,5 +1,5 @@
 import express from "express";
-import { createMachine, deleteMachine, getAllMachines, getMachine, updateMachine } from "../controllers/equipmentController.js";
+import { createMachine, deleteMachine, getAllMachines, getMachine, updateMachine } from "../controllers/machineController.js";
 import { createMonitor, deleteMonitor, getAllMonitors, getMonitor, updatedMonitor } from "../controllers/monitorController.js";
 import { createUps, deleteUps, getAllUps, getUps, updatedUps } from "../controllers/upsController.js";
 import { createProjector, deleteProjector, getAllProjectors, getProjector, updateProjector } from "../controllers/projectorController.js";
@@ -84,3 +84,4 @@ equipmentRouter.delete('/deleteLap/:id', deleteLap);
 
 
 export default equipmentRouter;
+

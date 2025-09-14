@@ -86,7 +86,7 @@ export const updateScaner = async (scanerId, updateData) => {
 
 export const deleteScaner = async (scanerId) => {
     const scaner = await Scaner.findByIdAndDelete(scanerId);
-    if (!scanerId) {
+    if (!scaner) {
         throw new Error("Scaner is not found");
     }
 

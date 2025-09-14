@@ -105,7 +105,7 @@ export const updateLap = async (lapId, updateData) => {
 
 export const deleteLap = async (lapId) => {
     const lap = await Lap.findByIdAndDelete(lapId);
-    if (!lapId) {
+    if (!lap) {
         throw new Error("Lap is not found");
     }
 

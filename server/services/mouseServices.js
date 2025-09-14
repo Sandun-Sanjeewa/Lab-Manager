@@ -85,8 +85,8 @@ export const updateMouse = async (mouseId, updateData) => {
 };
 
 export const deleteMouse = async (mouseId) => {
-    const Mouse = await Mouse.findByIdAndDelete(mouseId);
-    if (!mouseId) {
+    const mouse = await Mouse.findByIdAndDelete(mouseId);
+    if (!mouse) {
         throw new Error("Mouse is not found");
     }
 

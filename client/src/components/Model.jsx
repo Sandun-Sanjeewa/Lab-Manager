@@ -6,7 +6,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       <div className="bg-black border-2 border-white w-full max-w-md md:max-w-2xl rounded-lg pt-8 px-10 relative mx-4 shadow-lg">    
           <button
             onClick={onClose}
-            className="hidden absolute top-3 right-3 text-xl text-white hover:text-red-500  "
+            className=" absolute top-3 right-3 text-xl text-white hover:text-red-500  "
           >
             &times;
           </button>

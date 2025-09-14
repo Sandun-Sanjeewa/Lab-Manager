@@ -35,7 +35,7 @@ const Navbar = ({ className }) => {
         <>
             <header>
                <nav className={`w-full  shadow-md  ${className}`}>
-                    <div className="max-w-7xl mx-auto px-2 py-3 flex justify-between items-center">
+                    <div className="max-w-7xl mx-auto px-2 py-2 flex justify-between items-center">
                         <div>
                             <Link to="/home">My LabManager</Link>
                         </div>

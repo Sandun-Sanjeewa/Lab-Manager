@@ -9,7 +9,11 @@ const printerSchema = new mongoose.Schema({
     },
   specs: {
     printerType: { type: String, required: true },  
-    colorSupport: { type: Boolean, required: true },
+    colorSupport: {
+       type: String,
+       enum : ["Yes", "No"],
+       default:"No"
+       },
     maxResolution: { type: String }
   }
 });

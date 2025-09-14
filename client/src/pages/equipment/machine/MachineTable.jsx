@@ -1,89 +1,108 @@
-import { useEffect, useState } from "react";
-import { getAllMachines } from "../../../services/equipment/machineServices";
+import { useState } from "react";
+import EquipmentTable from "../../../components/EquipmentTable";
+import { useEquipment } from "../../../context/equipmentContext/EquipmentContext";
+import Modal from "../../../components/Model";
+import CreateMachine from "./CreateMachine";
+import { deleteMachine } from "../../../services/equipment/machineServices";
+import EditMachine from "./EditMachine";
 
-// import { useMachine } from "../../../context/equipmentContext/MachineContext";
-import Modal from "../../../components/Model.jsx";
-import CreateMachine from "./CreateMachine.jsx";
-import { useEquipment } from "../../../context/equipmentContext/EquipmentContext.jsx";
+
 
 const MachineTable = () => {
-    const { machines,fetchEquipment,loadng: machinesLoading} = useEquipment();
-    // const { machines, fetchMachines, loadng: machinesLoading } = useMachine();
-    const [isCreatedMachineOpen, setIsCreatedMachineOpen] = useState(false);
+    const { machines, fetchEquipment, loading: MachineLoading } = useEquipment();
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const [isEditOpen, setIsEditOpen] = useState(false);
+    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [selectedMachine, setSelectedMachine] = useState(null);
 
-    // const [machines, setMachines] = useState([]);
-    //const [loadng, setLoading] = useState(true);
+    const handleEdit = (machine) => {
+        setSelectedMachine(machine);
+        setIsEditOpen(true);
+    };
 
-    // useEffect(() => {
-    //     fetchMachines();
-    // }, []);
+    const handleDelete = (machine) => {
+        setSelectedMachine(machine);
+        setIsDeleteOpen(true);
+    };
+    const confirmDelete = async () => {
+        if (!selectedMachine) return;
+       await deleteMachine(selectedMachine._id);
+        fetchEquipment();
+        setIsDeleteOpen(false);
+        setSelectedMachine(null);
+    };
+    const machineColumns = [
+        { key: "machineID", label: "machine ID" },
+        { key: "lab", label: "Lab", render: (item) => item.lab?.labname },
+        { key: "brand", label: "Brand" },
+        { key: "status", label: "Status" },
+        { key: "addDate", label: "Add Date", render: (item) => new Date(item.addDate).toLocaleDateString() },
+        { key: "os", label: "OS", render: (item) => item.specs?.os },
+        { key: "ram", label: "RAM", render: (item) => item.specs?.ram },
+        { key: "processor", label: "processor", render: (item) => item.specs?.processor },
+        { key: "storage", label: "Storage", render: (item) => item.specs?.storage },
 
-    // const fetchMachines = async () => {
-    //     try {
-    //         const res = await getAllMachines();
-    //         setMachines(res.data);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.error(error);
-    //         setLoading(false);
-    //         toast.error("Faild to fetch Machines");
-    //     }
-    // };
+    ];
     return (
+
         <>
-            <div className="w-full h-full">
-                {machinesLoading ? (<p>Loading Machines</p>) : (
-                    <>
-                        <div className="ml-4 mt-2">
-                            <button onClick={() => setIsCreatedMachineOpen(true)} className="p-2 border-gray-800 border-2 text-gary-800 rounded-sm">Create Machine</button>
-                            <Modal
-                                isOpen={isCreatedMachineOpen}
-                                onClose={() => setIsCreatedMachineOpen(false)}
-                                title=""
-                            >
-                                <CreateMachine onClose={() => setIsCreatedMachineOpen(false)} onMachineCreated={fetchEquipment} />
-                            </Modal>
-                        </div>
-                        <div className="pt-4">
-                            <table className="min-w-full table-auto border border-gray-300">
-                                <thead>
-                                    <tr>
-
-                                        <th className="p-2 border">MachineID</th>
-                                        <th className="p-2 border">Lab</th>
-                                        <th className="p-2 border">Brand</th>
-                                        <th className="p-2 border">Status</th>
-                                        <th className="p-2 border">Add Date</th>
-                                        <th className="p-2 border">OS</th>
-                                        <th className="p-2 border">RAM</th>
-                                        <th className="p-2 border">Processor</th>
-                                        <th className="p-2 border">Storage</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {machines.map((machine) => (
-                                        <tr key={machine._id} className="align-middle">
-                                            <td className="p-2 border">{machine.machineID}</td>
-                                            <td className="p-2 border">{machine.lab?.labname}</td>
-                                            <td className="p-2 border">{machine.brand}</td>
-                                            <td className="p-2 border">{machine.status}</td>
-                                            <td className="p-2 border">
-                                                {new Date(machine.addDate).toLocaleDateString()}
-                                            </td>
-                                            <td className="p-2 border">{machine.specs?.os}</td>
-                                            <td className="p-2 border">{machine.specs?.ram}</td>
-                                            <td className="p-2 border">{machine.specs?.processor}</td>
-                                            <td className="p-2 border">{machine.specs?.storage}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </>
-                )}
+            <div className="mb-2">
+                <button
+                    onClick={() => setIsCreateOpen(true)}
+                    className="p-2 border border-gray-800 rounded"
+                >
+                    Create Machine
+                </button>
             </div>
+            <EquipmentTable
+                data={machines}
+                columns={machineColumns}
+                loading={MachineLoading}
+                title="Machines"
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+            />
+
+            
+
+            <Modal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} title="Create machine">
+                <CreateMachine onClose={() => setIsCreateOpen(false)}  onMachineCreated={fetchEquipment} />
+            </Modal>
+            
+            <Modal isOpen={isEditOpen} onClose={() => setIsEditOpen(false)} title="Edit Machine">
+                {selectedMachine && (
+                    <EditMachine
+                    machine={selectedMachine}
+                    onClose={()=>setIsEditOpen(false)}
+                    onMachineUpdated={fetchEquipment}
+                    />
+                )}
+            </Modal>
+            
+
+            <Modal isOpen={isDeleteOpen} onClose={() => setIsDeleteOpen(false)} title="Delete lap">
+                <h3 className="text-lg font-bold mb-4 text-gray-200">
+                    Are you sure you want to delete{" "}
+                    <span className="text-red-600">{selectedMachine?.machineID}</span> ?
+                </h3>
+                <div className="flex justify-end gap-2 my-4">
+                    <button
+                        onClick={() => setIsDeleteOpen(false)}
+                        className="px-3 py-1 bg-gray-300 rounded"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={confirmDelete}
+                        className="px-3 py-1 bg-red-600 text-white rounded"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </Modal>
         </>
+
     );
 };
+
 export default MachineTable;

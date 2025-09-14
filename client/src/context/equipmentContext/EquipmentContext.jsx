@@ -5,11 +5,11 @@ import { getAllScaners } from "../../services/equipment/scanerServices";
 import { getAllMonitors } from "../../services/equipment/monitorServices";
 import { getAllUpss } from "../../services/equipment/upsServices";
 import { getAllCables } from "../../services/equipment/cableServices";
-import { getAllKeyboards } from "../../services/equipment/keyboardServices";
 import { getAllMics } from "../../services/equipment/micServices";
 import { getAllMouses } from "../../services/equipment/mouseServices";
 import { getAllProjectors } from "../../services/equipment/projectorServices";
 import { getAllLaps } from "../../services/equipment/lapServices";
+import { getAllKeyboards } from "../../services/equipment/KeyboardServices";
 
 
 const EquipmentContext = createContext();
@@ -24,7 +24,7 @@ export const EquipmentProvider = ({ children }) => {
   const [keyboards, setKeyboards] = useState([]);
   const [mics,setMics] = useState([]);
   const [mouses, setMouses]= useState([]);
-  const [projectores, setProjectores] = useState([]);
+  const [projectors, setProjectors] = useState([]);
   const [laps, setLaps] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -54,7 +54,7 @@ export const EquipmentProvider = ({ children }) => {
       setKeyboards(keyboardRes.data);
       setMics(micRes.data);
       setMouses(mouseRes.data);
-      setProjectores(projectorRes.data);
+      setProjectors(projectorRes.data);
       setLaps(lapRes.data);
     } catch (err) {
       console.error("Error fetching equipment", err);
@@ -68,7 +68,7 @@ export const EquipmentProvider = ({ children }) => {
   }, []);
 
   return (
-    <EquipmentContext.Provider value={{ machines, printers, scaners, monitors, upss, cables,keyboards, mics, mouses, projectores, laps,fetchEquipment, loading }}>
+    <EquipmentContext.Provider value={{ machines, printers, scaners, monitors, upss, cables,keyboards, mics, mouses, projectors, laps,fetchEquipment, loading }}>
       {children}
     </EquipmentContext.Provider>
   );

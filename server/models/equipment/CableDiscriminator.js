@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Equipment from "./equipmentModel.js";
 
 const cableSchema = new mongoose.Schema({
-       mouseID: {
+       cableID: {
         type: String,
         required: true,
         unique: true

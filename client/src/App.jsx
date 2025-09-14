@@ -11,7 +11,6 @@ import LabDashboard from "./pages/labs/LabDashboard.jsx";
 import AssistantDashboard from "./pages/assistant/AssistentDashboard.jsx";
 import { LabProvider } from "./context/LabContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
-import { MachineProvider } from "./context/equipmentContext/MachineContext.jsx";
 import { EquipmentTypeProvider } from "./context/equipmentContext/EquipmentTypeContext.jsx";
 import { EquipmentProvider } from "./context/equipmentContext/EquipmentContext.jsx";
 

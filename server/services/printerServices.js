@@ -4,7 +4,7 @@ import Lab from "../models/labModel.js";
 
 export const createPrinter = async (data) => {
     const { printerID, lab, equipmentType, brand, status, addDate, printerType, colorSupport, maxResolution } = data;
-    if (!printerID || !lab || !equipmentType || !brand || !printerType || !colorSupport || !maxResolution) {
+    if (!printerID || !lab || !equipmentType || !brand || !printerType || !maxResolution) {
         throw new Error("All fields are required");
     };
     const trimmedPrinterID = printerID.trim().replace(/\s+/g, "");
@@ -91,7 +91,7 @@ export const updatePrinter = async (printerId, updateData) => {
 
 export const deletePrinter = async(printerId)=>{
     const printer = await Printer.findByIdAndDelete(printerId);
-    if(!printerId){
+    if(!printer){
         throw new Error ("Printer is not found");
     }
 

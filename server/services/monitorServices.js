@@ -92,7 +92,7 @@ export const updateMonitor = async (monitorId, updateData) => {
 
 export const deleteMonitor = async (monitorId) => {
     const monitor = await Monitor.findByIdAndDelete(monitorId);
-    if (!monitorId) {
+    if (!monitor) {
         throw new Error("Monitor is not found");
     }
 

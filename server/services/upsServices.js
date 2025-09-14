@@ -4,7 +4,8 @@ import Lab from "../models/labModel.js";
 
 export const createUps = async(data)=>{
     const{lab, equipmentType,brand,status,addDate,upsID,capacity,batteryHealth}=data;
-    if(!lab || !equipmentType || !brand || !upsID || !capacity || !batteryHealth){
+    console.log(data);
+    if(!lab || !equipmentType || !brand || !upsID || !capacity ){
         throw new Error ("All fields are required");
     }
 
@@ -90,7 +91,7 @@ export const updateUps = async (upsId,updateData)=>{
 
 export const deleteUps = async(upsId)=>{
     const ups = await UPS.findByIdAndDelete(upsId);
-    if(!upsId){
+    if(!ups){
         throw new Error ("Ups is not found");
     }
 

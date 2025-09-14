@@ -86,7 +86,7 @@ export const updateCable = async (cableId, updateData) => {
 
 export const deleteCable = async (cableId) => {
     const cable = await Cable.findByIdAndDelete(cableId);
-    if (!cableId) {
+    if (!cable) {
         throw new Error("Cable is not found");
     }
 

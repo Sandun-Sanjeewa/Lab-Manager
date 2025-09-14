@@ -85,8 +85,8 @@ export const updateMic = async (micId, updateData) => {
 };
 
 export const deleteMic = async (micId) => {
-    const Mic = await Mic.findByIdAndDelete(micId);
-    if (!micId) {
+    const mic = await Mic.findByIdAndDelete(micId);
+    if (!mic) {
         throw new Error("Mic is not found");
     }
 

@@ -15,7 +15,7 @@ const LandingPage = () => {
                     style={{ backgroundImage: `url(${LandingImg1})`, }}
                 >
                     <div className="flex flex-col justify-between min-h-screen">
-                        <Navbar className="text-gray-50" />
+                        <Navbar className="text-gray-50  py-2" />
 
 
                         <main className="flex-grow">
@@ -47,17 +47,15 @@ const LandingPage = () => {
                             >
                                 <SignupForm onClose={() => setSignUpOpen(false)} />
                             </Modal>
+
+                            
                         </main>
-                        <div >
-                            <Footer />
-                        </div>
+
 
                     </div>
 
                 </div>
-                {/* <div >
-                    <Footer />
-                </div> */}
+
             </div>
         </>
 

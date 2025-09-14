@@ -87,7 +87,7 @@ export const updateKeyboard = async (keyboardId, updateData) => {
 
 export const deleteKeyboard = async (keyboardId) => {
     const keyboard = await Keyboard.findByIdAndDelete(keyboardId);
-    if (!keyboardId) {
+    if (!keyboard) {
         throw new Error("Keyboard is not found");
     }
 

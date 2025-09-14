@@ -86,7 +86,7 @@ export const updateProjector = async (projectorId, updateData) => {
 
 export const deleteProjector = async (projectorId) => {
     const projector = await Projector.findByIdAndDelete(projectorId);
-    if (!projectorId) {
+    if (!projector) {
         throw new Error("Projector is not found");
     }
 

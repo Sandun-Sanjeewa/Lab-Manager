@@ -1,10 +1,10 @@
 const Card = ({ CardClass, TopicClass, topic , content }) => {
     return (
         <>
-            <div className={` ${CardClass}`}>
-                <div className={` ${TopicClass}`}>
+            <div className={`md:rounded-xl hover:bg-gray-900 hover:text-gray-100 ${CardClass}`}>
+                <div className={`md:rounded-xl hover:bg-gray-900 hover:text-gray-100 ${TopicClass}`}>
                     {topic}
-                    <div className="flex justify-center items-center text-black text-5xl">
+                    <div className="flex justify-center items-center  hover:text-gray-100 text-5xl">
                         {content}
                     </div>
                 </div>
