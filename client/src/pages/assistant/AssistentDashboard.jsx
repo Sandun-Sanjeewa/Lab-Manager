@@ -59,6 +59,9 @@ const AssistantDashboard = () => {
             </div>
             <div className=" p-4">
                 <LapTable />
+            </div>
+            <div>
+                <LabTable/>
             </div> */}
 
             {/* <div className="w-full min-h-screen bg-black text-gray-100">

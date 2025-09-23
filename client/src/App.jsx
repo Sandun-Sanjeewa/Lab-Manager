@@ -13,6 +13,8 @@ import { LabProvider } from "./context/LabContext.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
 import { EquipmentTypeProvider } from "./context/equipmentContext/EquipmentTypeContext.jsx";
 import { EquipmentProvider } from "./context/equipmentContext/EquipmentContext.jsx";
+import LabsTables from "./pages/labs/LabsTables.jsx";
+import LabEquipmentTypesTable from "./pages/labs/LabEquipmentTypesTable.jsx";
 
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
                   <Route path="/dashboard" element={<ProtectedRoute requiredRole="superadmin"><DashboardPage /></ProtectedRoute>} />
                   <Route path="/landing" element={<LandingPage />} />
                   <Route path="/labdashboard" element={<LabDashboard />} />
+                  <Route path="/labtable" element={<LabsTables/>}/>
+                  <Route path="/labequipmenttypetable" element={<LabEquipmentTypesTable/>}/>
                   <Route path="/assistantdashboard" element={<AssistantDashboard />} />
                 </Routes>
               </BrowserRouter>

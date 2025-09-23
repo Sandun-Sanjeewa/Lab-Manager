@@ -7,6 +7,7 @@ import userRouter from './routes/userRoutes.js';
 import labrouter from './routes/labRoute.js';
 import equipmentTypeRouter from './routes/equpmentTypeRoute.js';
 import equipmentRouter from './routes/equipmentRoute.js';
+import repairRoute from './routes/repairRoute.js';
 
 
 
@@ -28,6 +29,7 @@ app.use("/api/user",userRouter);
 app.use("/api/lab", labrouter);
 app.use("/api/equipment-type" , equipmentTypeRouter);
 app.use("/api/equipment", equipmentRouter);
+app.use("/api/repair",repairRoute);
 
 
 const PORT = process.env.PORT || 5000;
