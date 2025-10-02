@@ -25,7 +25,7 @@ export const UserProvider = ({ children }) => {
             fetchUsers();
         } else {
             setLoading(false);
-            toast.error("You are not logged in.");
+            
         }
     }, []);
 

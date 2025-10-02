@@ -61,26 +61,29 @@ const SignupForm = ({ onClose }) => {
   };
 
   return (
-    <div className="text-gray-800">
-      <h3 className="text-gray-400 mb-2">Create new account</h3>
+    <div className="">
+      <div className="md:mb-4">
+        <h3 className="text-gray-500 md:text-sm ">Create new account</h3>
+      </div>
+
       {error.general && <p className="text-red-500 text-sm mb-3">{error.general}</p>}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="text-gray-500">User Name</label>
+          <label className="text-gray-300">User Name</label>
           <input
             type="text"
             name="name"
             value={userFormData.name}
             onChange={handleChange}
             autoComplete="off"
-            className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.name ? "border-red-400" : "border-gray-200"}`}
+            className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full text-gray-50 ${error.name ? "border-red-400" : "border-gray-200"}`}
           />
           {error.name && <p className="text-red-400 text-xs">{error.name}</p>}
         </div>
 
         <div className="mb-4">
-          <label className="text-gray-500">Email</label>
+          <label className="text-gray-300">Email</label>
           <input
             type="email"
             name="email"
@@ -93,7 +96,7 @@ const SignupForm = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label className="text-gray-500">Password</label>
+          <label className="text-gray-300">Password</label>
           <input
             type="password"
             name="password"
@@ -108,7 +111,7 @@ const SignupForm = ({ onClose }) => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="w-auto px-4 max-w-[180px] my-4 h-10 text-gray-800 transition-all duration-100 ease-in-out bg-transparent border-2 border-gray-500 rounded hover:border-blue-700 hover:text-black"
+            className="w-auto px-4 max-w-[180px] my-4 h-10 text-gray-100 transition-all duration-100 ease-in-out bg-transparent border-2 border-gray-500 rounded hover:border-blue-700 hover:text-blue-700"
           >
             Signup
           </button>

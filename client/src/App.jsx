@@ -15,6 +15,7 @@ import { EquipmentTypeProvider } from "./context/equipmentContext/EquipmentTypeC
 import { EquipmentProvider } from "./context/equipmentContext/EquipmentContext.jsx";
 import LabsTables from "./pages/labs/LabsTables.jsx";
 import LabEquipmentTypesTable from "./pages/labs/LabEquipmentTypesTable.jsx";
+import { RepairProvider } from "./context/RepairContext.jsx";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <LabProvider>
           <EquipmentTypeProvider>
             <EquipmentProvider>
+              <RepairProvider>
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<LandingPage />} />
@@ -39,6 +41,7 @@ function App() {
                 </Routes>
               </BrowserRouter>
               <ToastContainer position="top-center" autoClose={2000} />
+              </RepairProvider>
             </EquipmentProvider>
           </EquipmentTypeProvider>
         </LabProvider>

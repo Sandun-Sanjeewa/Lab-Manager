@@ -1,13 +1,20 @@
-const Dashboard = ({maincontent}) => {
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+
+const Dashboard = ({ maincontent }) => {
     return (
         <>
-            <div className="flex md:flex-row flex-col bg:black">
-                <aside className=" fixed z-10 bg-gray-900 w-full  md:w-[50px] h-[50px] md:min-h-screen  p-2 ">
+            <div className="flex flex-col min-h-screen bg-gray-200">
+                <div className="">
+                    <Navbar className={"bg-gray-50 text-gray-950"} />
+                </div>
+                <div className="flex flex-col md:flex-row   ">
+                    <Sidebar/>
+                    <main className="bg-gray-200  w-full px-4 mt-[40px] md:pl-[66px] md:pr-[10px] md:mt-[50px] md:pt-2 ">
+                        {maincontent}
 
-                </aside>
-                <main className=" bg-gray-200 w-full  md:min-h-screen  p-2 pt-[50px] md:p-4 md:pl-[60px] ">
-                    {maincontent}
-                </main>
+                    </main>
+                </div>
             </div>
         </>
     );

@@ -50,14 +50,14 @@ const LoginForm = ({ onClose }) => {
   };
 
   return (
-    <div className="text-gray-800">
+    <div className="">
       <form onSubmit={handleSubmit}>
         {error.general && <p className="text-red-500 text-sm mb-2">{error.general}</p>}
 
         <div className="mb-4">
           <label className="text-gray-500">Email</label>
           <input
-            className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.email ? "border-red-400" : "border-gray-200"}`}
+            className={`text-gray-50 border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.email ? "border-red-400" : "border-gray-200"}`}
             type="email"
             name="email"
             value={userFormData.email}
@@ -70,7 +70,7 @@ const LoginForm = ({ onClose }) => {
         <div className="mb-4">
           <label className="text-gray-500">Password</label>
           <input
-            className={`border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.password ? "border-red-400" : "border-gray-200"}`}
+            className={`text-gray-50 border-0 border-b-2 focus:border-blue-500 outline-none w-full ${error.password ? "border-red-400" : "border-gray-200"}`}
             type="password"
             name="password"
             value={userFormData.password}
@@ -82,7 +82,7 @@ const LoginForm = ({ onClose }) => {
 
         <div className="flex justify-end">
           <button
-            className="w-auto px-2 max-w-[180px] my-4 items-center justify-center h-10 text-gray-800 transition-all duration-100 ease-in-out bg-transparent border-2 border-gray-500 rounded hover:border-blue-700 hover:text-black"
+            className="w-auto px-4 max-w-[180px] my-4 h-10 text-gray-100 transition-all duration-100 ease-in-out bg-transparent border-2 border-gray-500 rounded hover:border-blue-700 hover:text-blue-700"
             type="submit"
           >
             Login

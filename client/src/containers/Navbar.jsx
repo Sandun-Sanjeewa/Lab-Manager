@@ -34,13 +34,19 @@ const Navbar = ({ className }) => {
     return (
         <>
             <header>
-               <nav className={`w-full  shadow-md  ${className}`}>
+                <nav className={`fixed top-0 left-0 w-full  z-20 h-[40px] md:h-[50px] ${className}`}>
                     <div className="max-w-7xl mx-auto px-2 py-2 flex justify-between items-center">
                         <div>
                             <Link to="/home">My LabManager</Link>
                         </div>
                         <ul className=" hidden md:flex space-x-6 ">
-                            <li><Link to="/home">Home</Link></li>
+                            {isLogin?(
+                                <>
+                                <li><Link to="/home">Home</Link></li>
+                                </>
+                            ):(
+                                <></>
+                            )}
                             {role === "superadmin" && <li><Link to="/dashboard">Admin Panel</Link></li>}
                             {["superadmin", "assistant"].includes(role) && (
                                 <li><Link to="/assistantdashboard">Assistant dashboard</Link></li>
@@ -49,24 +55,28 @@ const Navbar = ({ className }) => {
                             <li><Link to="/about">About</Link></li>
                             {isLogin ?
                                 (
-                                    <li>
+                                    <>
+                                        
+                                        <li>
 
-                                        <button onClick={() => setLogOutOpen(true)}>LogOut</button>
-                                        <Modal
-                                            isOpen={isLogOutOpen}
-                                            onClose={() => setLogOutOpen(false)}
-                                            title=""
-                                        >
-                                            <UserLogOut
+                                            <button onClick={() => setLogOutOpen(true)}>LogOut</button>
+                                            <Modal
+                                                isOpen={isLogOutOpen}
                                                 onClose={() => setLogOutOpen(false)}
-                                                onLogout={() => {
-                                                    setToken(null);
-                                                    setRole(null);
-                                                    setLogOutOpen(false);
-                                                }}
-                                            />
-                                        </Modal>
-                                    </li>
+                                                title=""
+                                            >
+                                                <UserLogOut
+                                                    onClose={() => setLogOutOpen(false)}
+                                                    onLogout={() => {
+                                                        setToken(null);
+                                                        setRole(null);
+                                                        setLogOutOpen(false);
+                                                    }}
+                                                />
+                                            </Modal>
+                                        </li>
+                                    </>
+
                                 )
                                 :
                                 (
@@ -94,7 +104,7 @@ const Navbar = ({ className }) => {
                                             <Modal
                                                 isOpen={isSignUpOpen}
                                                 onClose={() => setSignUpOpen(false)}
-                                                title="User Signup"
+                                                title="Signup"
                                             >
                                                 <SignupForm onClose={() => setSignUpOpen(false)} />
                                             </Modal>

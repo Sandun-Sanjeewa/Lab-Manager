@@ -20,7 +20,7 @@ const DashboardPage = () => {
         if (token) {
             setTokenReady(true);
         } else {
-            toast.error("You are not logged in.");
+            toast.error("You are not logged in. ");
         }
     }, []);
 

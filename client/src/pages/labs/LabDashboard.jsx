@@ -1,12 +1,16 @@
 
 import Card from "../../components/Card";
+
 import EquipmentCard from "../../components/EquipmentCard";
+import Dashboard from "../../containers/Dashboard";
+
 import { useEquipment } from "../../context/equipmentContext/EquipmentContext";
 import { useEquipmentType } from "../../context/equipmentContext/EquipmentTypeContext";
 import { useLabs } from "../../context/LabContext";
+import { useRepair } from "../../context/RepairContext";
 import { useUsers } from "../../context/UserContext";
-import MachineTable from "../equipment/machine/MachineTable";
-import MonitorTable from "../equipment/monitor/MonitorTable";
+
+import { Speaker, Mouse, Projector, Cable, PcCase, Monitor, Printer, Laptop, Keyboard, Mic, BatteryCharging, ScanLine, Users, Building, MonitorSpeaker, MonitorCog } from "lucide-react";
 
 const LabDashboard = () => {
     const { labs, loading: labsLoading } = useLabs();
@@ -14,14 +18,149 @@ const LabDashboard = () => {
     const { users } = useUsers();
     const assistantsCount = users.filter(u => u.role === "assistant").length;
     const { machines, printers, scaners, monitors, upss, cables, keyboards, mics, mouses, projectors, laps } = useEquipment();
-
+    const { repairs } = useRepair();
     if (labsLoading) return <p>Loading Dashboard...</p>;
 
     return (
         <>
-            <div className="flex md:flex-row flex-col ">
 
-                <aside className="bg-gray-900 p-2 md:w-[50px]  md:min-h-screen h-[50px] w-full fixed z-10 ">
+            <Dashboard
+
+                maincontent={
+                    <>
+                        <div>
+                            <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center bg-gray-100 rounded-md ">
+                                <span className="text-xl md:text-2xl md:pl-10">Dashboard</span>
+                            </div>
+                         
+
+                            <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-4  gap-4 md:gap-6 2xl:gap-7.5 md:px-10 md:pt-4  bg-gray-200 ">
+                                <Card
+                                    CardClass=""
+                                    TopicClass=""
+                                    topic="Assistants"
+                                    svgicon={
+                                        // <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="w-6 sm:w-8 md:w-16">
+                                        //     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                                        // </svg>
+                                        <Users className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
+
+
+                                    }
+                                    content={assistantsCount}
+                                />
+
+                                <Card
+                                    CardClass=""
+                                    TopicClass=""
+                                    topic={"Labs"}
+                                    svgicon={
+                                        <Building className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
+
+                                    }
+                                    content={labs.length}
+                                    linkPath={"/labtable"}
+                                />
+
+
+                                <Card
+                                    CardClass={" "}
+                                    TopicClass={""}
+                                    topic={"Equipments"}
+                                    svgicon={
+                                        <MonitorSpeaker className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
+                                    }
+                                    content={equipmentTypes.length}
+                                    linkPath={"/labequipmenttypetable"}
+                                />
+                                <Card
+                                    CardClass={""}
+                                    TopicClass={""}
+                                    topic={"Repaires"}
+                                    svgicon={
+                                        <MonitorCog className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
+                                    }
+                                    content={repairs.length}
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 my-4  md:px-10 gap-y-2 gap-x-[2px] bg-gray-200">
+                                <EquipmentCard
+                                    equipmentsvgicon={<PcCase className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={machines.length}
+                                    equipmentName={"Machines"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Printer className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={printers.length}
+                                    equipmentName={"Printers"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<ScanLine className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={scaners.length}
+                                    equipmentName={"Scaners"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Monitor className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={monitors.length}
+                                    equipmentName={"Monitors"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<BatteryCharging className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={upss.length}
+                                    equipmentName={"UPS"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Cable className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={cables.length}
+                                    equipmentName={"Cables"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Keyboard className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={keyboards.length}
+                                    equipmentName={"Keyboards"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={< Mic className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={mics.length}
+                                    equipmentName={"Mics"}
+                                />
+                                <EquipmentCard
+
+                                    equipmentsvgicon={<Mouse className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={mouses.length}
+                                    equipmentName={"Mouses"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Projector className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+
+                                    equipmentQuantity={projectors.length}
+                                    equipmentName={"Projectors"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Laptop className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={laps.length}
+                                    equipmentName={"Laps"}
+                                />
+                                <EquipmentCard
+                                    equipmentsvgicon={<Speaker className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+                                    equipmentQuantity={machines.length}
+                                    equipmentName={"Speakers"}
+                                />
+
+
+                            </div>
+                            <div className="h-[400px] bg-gray-200">
+
+                            </div>
+                        </div>
+                    </>
+                }
+
+            />
+            {/* <div className="flex  flex-col md:flex-row ">
+               
+                <aside className="bg-gray-900 p-2  md:w-[50px]  md:min-h-screen h-[40px] w-full fixed z-10 ">
                     <h1 className="text-2xl  mb-4 text-gray-100">
                         dg
                     </h1>
@@ -29,7 +168,7 @@ const LabDashboard = () => {
 
                 <main className=" bg-gray-200 w-full md:p-4 p-2 md:pl-[60px] pt-[50px] md:min-h-screen divide-y divide-red-300">
                     <div>
-                        <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center pl-4 ">
+                        <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center  ">
                             <span className="text-xl md:text-2xl">Dashboard</span>
                         </div>
 
@@ -81,99 +220,72 @@ const LabDashboard = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
                                 </svg>
                                 }
-                                content={equipmentTypes.length}
+                                content={repairs.length}
                             />
-
-
-
-
-
                         </div>
 
                         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 my-4  md:px-10 gap-y-2 gap-x-[2px] ">
                             <EquipmentCard
-                                EquipmetsClass={" "}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={" "}
+                                equipmentsvgicon={<PcCase className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={machines.length}
                                 equipmentName={"Machines"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Printer className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={printers.length}
                                 equipmentName={"Printers"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<ScanLine className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={scaners.length}
                                 equipmentName={"Scaners"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Monitor className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={monitors.length}
                                 equipmentName={"Monitors"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<BatteryCharging className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={upss.length}
                                 equipmentName={"UPS"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Cable className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={cables.length}
                                 equipmentName={"Cables"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Keyboard className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={keyboards.length}
                                 equipmentName={"Keyboards"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={< Mic className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={mics.length}
                                 equipmentName={"Mics"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+
+                                equipmentsvgicon={<Mouse className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={mouses.length}
                                 equipmentName={"Mouses"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Projector className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
+
                                 equipmentQuantity={projectors.length}
                                 equipmentName={"Projectors"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Laptop className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={laps.length}
                                 equipmentName={"Laps"}
                             />
                             <EquipmentCard
-                                EquipmetsClass={""}
-                                EquipmentsQuantity={" "}
-                                EquipmentsName={""}
+                                equipmentsvgicon={<Speaker className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                 equipmentQuantity={machines.length}
-                                equipmentName={"Machines"}
+                                equipmentName={"Speakers"}
                             />
 
 
@@ -189,7 +301,7 @@ const LabDashboard = () => {
 
                     </div>
                 </main>
-            </div>
+            </div> */}
 
         </>
     );
