@@ -14,7 +14,7 @@ const equipmentRepairSchema = new mongoose.Schema({
     reportedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        
     },
     assignedTechnician: {
         type: mongoose.Schema.Types.ObjectId,

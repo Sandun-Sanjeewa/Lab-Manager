@@ -11,6 +11,9 @@ import { useRepair } from "../../context/RepairContext";
 import { useUsers } from "../../context/UserContext";
 
 import { Speaker, Mouse, Projector, Cable, PcCase, Monitor, Printer, Laptop, Keyboard, Mic, BatteryCharging, ScanLine, Users, Building, MonitorSpeaker, MonitorCog } from "lucide-react";
+import MachineTable from "../equipment/machine/MachineTable";
+import MonitorTable from "../equipment/monitor/MonitorTable";
+import LabTable from "./LabTable";
 
 const LabDashboard = () => {
     const { labs, loading: labsLoading } = useLabs();
@@ -32,7 +35,7 @@ const LabDashboard = () => {
                             <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center bg-gray-100 rounded-md ">
                                 <span className="text-xl md:text-2xl md:pl-10">Dashboard</span>
                             </div>
-                         
+
 
                             <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-4  gap-4 md:gap-6 2xl:gap-7.5 md:px-10 md:pt-4  bg-gray-200 ">
                                 <Card
@@ -81,6 +84,7 @@ const LabDashboard = () => {
                                         <MonitorCog className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
                                     }
                                     content={repairs.length}
+                                    linkPath={"/techniciondashboard"}
                                 />
                             </div>
 
@@ -150,8 +154,14 @@ const LabDashboard = () => {
 
 
                             </div>
-                            <div className="h-[400px] bg-gray-200">
-
+                            <div className="h-[600px] bg-gray-200 mb-6">
+                                <MachineTable />
+                            </div>
+                            <div className="h-[400px] bg-gray-200 mb-6">
+                                <MonitorTable/>
+                            </div>
+                            <div>
+                                <LabTable/>
                             </div>
                         </div>
                     </>

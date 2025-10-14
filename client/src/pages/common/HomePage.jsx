@@ -1,7 +1,7 @@
 import departmentimg from "../../assets/departmentimg.png";
 import RuhunuUniLogo from "../../assets/RuhunuUniLogo.png";
 import Navbar from "../../containers/Navbar";
-import { Laptop, CalendarDays, Wrench, Users, Megaphone } from "lucide-react";
+import { Laptop, CalendarDays, Wrench, Users, Megaphone, Building } from "lucide-react";
 
 const HomePage = () => {
     return (
@@ -36,42 +36,43 @@ const HomePage = () => {
             <section className="py-8 bg-gray-50">
                 <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-4 text-center">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 ">
-                         <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-purple-300">
+                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-purple-300 duration-700 ease-in-out">
                             <Users className="w-12 h-12 text-purple-600 mb-4" />
                             <h3 className="text-xl font-semibold text-gray-800">User Roles</h3>
                             <p className="text-gray-600 mt-2 text-sm text-justify">
                                 Role-based access for students, lab assistants, lecturers and technicians.
                             </p>
                         </div>
-                         <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-blue-300">
-                            <Laptop className="w-12 h-12 text-blue-600 mb-4" />
+                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-yellow-200 duration-700 ease-in-out">
+                            <Building className="w-12 h-12 text-yellow-600 mb-4" />
                             <h3 className="text-xl font-semibold text-gray-800">Lab Management</h3>
                             <p className="text-gray-600 mt-2 text-sm text-justify">
                                 Organize computer labs and keep track of lab resources in one place.
                             </p>
                         </div>
-                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-blue-300">
+                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-blue-300 duration-700 ease-in-out">
                             <Laptop className="w-12 h-12 text-blue-600 mb-4" />
-                            <h3 className="text-xl font-semibold text-gray-800">Lab Management</h3>
+                            <h3 className="text-xl font-semibold text-gray-800">Equipments</h3>
                             <p className="text-gray-600 mt-2 text-sm text-justify">
-                                Organize computer labs and keep track of lab resources in one place.
+                                Manage and monitor lab equipment including computers, monitors, and accessories with real-time updates.
                             </p>
                         </div>
-                        <div className="flex flex-col items-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-green-300">
+
+                        <div className="flex flex-col items-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-green-300 duration-700 ease-in-out">
                             <CalendarDays className="w-12 h-12 text-green-600 mb-4" />
                             <h3 className="text-xl font-semibold text-gray-800">Scheduling</h3>
                             <p className="text-gray-600 mt-2 text-sm text-justify">
                                 Manage practical sessions and schedules with Google Calendar integration.
                             </p>
                         </div>
-                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-red-300">
+                        <div className="flex flex-col items-center text-center p-6 bg-white shadow-lg rounded-2xl hover:shadow-xl transition hover:scale-105 hover:shadow-red-300 duration-700 ease-in-out">
                             <Wrench className="w-12 h-12 text-red-600 mb-4" />
                             <h3 className="text-xl font-semibold text-gray-800">Equipment Tracking</h3>
                             <p className="text-gray-600 mt-2 text-sm text-justify">
                                 Monitor hardware details, software installations, and maintenance schedules.
                             </p>
                         </div>
-                       
+
                     </div>
                 </div>
             </section>

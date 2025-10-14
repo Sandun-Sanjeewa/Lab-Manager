@@ -40,23 +40,35 @@ const Navbar = ({ className }) => {
                             <Link to="/home">My LabManager</Link>
                         </div>
                         <ul className=" hidden md:flex space-x-6 ">
-                            {isLogin?(
+                            {isLogin ? (
                                 <>
-                                <li><Link to="/home">Home</Link></li>
+                                    <li><Link to="/home">Home</Link></li>
+                                    {role === "superadmin" &&
+                                        <>
+                                            <li><Link to="/dashboard">Admin Panel</Link></li>
+                                        </>
+                                    }
+                                    {["superadmin", "assistant"].includes(role) && (
+                                        <li><Link to="/assistantdashboard">Assistant dashboard</Link></li>
+                                    )}
+                                    {["superadmin", "technician"].includes(role) && (
+                                        <li><Link to="/techniciondashboard">Technician dashboard</Link></li>
+                                    )}
+                                    {["superadmin", "lecturer"].includes(role) && (
+                                        <li><Link to="/lecturerdashboard">Lecturer dashboard</Link></li>
+                                    )}
+
                                 </>
-                            ):(
+                            ) : (
                                 <></>
-                            )}
-                            {role === "superadmin" && <li><Link to="/dashboard">Admin Panel</Link></li>}
-                            {["superadmin", "assistant"].includes(role) && (
-                                <li><Link to="/assistantdashboard">Assistant dashboard</Link></li>
                             )}
 
                             <li><Link to="/about">About</Link></li>
+
                             {isLogin ?
                                 (
                                     <>
-                                        
+
                                         <li>
 
                                             <button onClick={() => setLogOutOpen(true)}>LogOut</button>

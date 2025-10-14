@@ -1,151 +1,122 @@
-import {  useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import Modal from "../../components/Model";
-import { getAllLabs } from "../../services/labServices";
 import CreateLabForm from "./LabCreateForm";
 import LabDelete from "./LabDelete";
 import LabUpdateForm from "./LabUpdateForm";
 import { useLabs } from "../../context/LabContext";
-
+import { PlusCircle, Edit, Trash2 } from "lucide-react";
 
 const LabTable = () => {
-     const { labs, fetchLabs, loading: labsLoading  } = useLabs();
-    // const [labs, setLabs] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    const [isCreateLabOpen, setIsCreateLab] = useState(false);
-    const [editingLabOpen, setEditingLabOpen] = useState(null);
-    const [editingLabData, setEditingLabData] = useState(null);
-    const [selecetedLab, setSelectedLab] = useState("");
-    const [labToDelete, setLabToDelete] = useState(null);
-    // const [tokenRady, setTokenReady] = useState(false);
-   
-    // useEffect(() => {
-    //     const token = localStorage.getItem("token");
-    //     if (token) {
-    //         setTokenReady(true);
-    //     } else {
-    //         toast.error("you are not logged in.")
-    //     }
-    // }, []);
-    // useEffect(() => {
-    //     if (tokenRady) {
-    //         fetchLabs();
-    //     }
-    // }, [tokenRady]);
+  const { labs, fetchLabs, loading: labsLoading } = useLabs();
 
-    // const fetchLab = async () => {
-    //     try {
-    //         const res = await getAllLabs();
-    //         setLabs(res.data);
-    //         setLoading(false);
-    //     } catch (error) {
-    //         console.error(error);
-    //         setLoading(false);
-    //         toast.error("Failed to fetch labs");
-    //     }
-    // };
+  const [isCreateLabOpen, setIsCreateLab] = useState(false);
+  const [editingLabOpen, setEditingLabOpen] = useState(false);
+  const [editingLabData, setEditingLabData] = useState(null);
+  const [selectedLab, setSelectedLab] = useState(false);
+  const [labToDelete, setLabToDelete] = useState(null);
 
-    const handleEditClick = (lab) => {
-        setEditingLabData(lab);
-        setEditingLabOpen(true);
-    };
+  const handleEditClick = (lab) => {
+    setEditingLabData(lab);
+    setEditingLabOpen(true);
+  };
 
-    const deleteLabHandle = async (lab) => {
-        setLabToDelete(lab);
-        setSelectedLab(true);
-    };
+  const deleteLabHandle = async (lab) => {
+    setLabToDelete(lab);
+    setSelectedLab(true);
+  };
 
-    return (
-        <>
-            <div className="w-full h-full">
-                {labsLoading ? (<p>Loading users...</p>) : (
-                    <>
-                        <div className="ml-4 mt-2">
-                            <button onClick={() => setIsCreateLab(true)} className="p-2 border-gray-800 border-2 text-gary-800 rounded-sm">Create lab</button>
-                            <Modal
-                                isOpen={isCreateLabOpen}
-                                onClose={() => setIsCreateLab(false)}
-                                title=""
-                            >
-                                <CreateLabForm onClose={() => setIsCreateLab(false)} onLabCreated={fetchLabs} />
-                            </Modal>
-                        </div>
-                        <div className="p-4">
-                            <table className="min-w-full table-auto border border-gray-300">
-                                <thead>
-                                    <tr>
-                                        <th className="p-2 border"></th>
-                                        <th className="p-2 border">Name</th>
-                                        <th className="p-2 border">location</th>
-                                        <th className="p-2 border">Assistant Name</th>
-                                        <th className="p-2 border">Assistant Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {labs.map((lab) => (
-                                        <tr key={lab._id} className=" align-middle">
-                                            <td className="p-2 border ">
-                                                <div className="flex  justify-around" >
-                                                    <button onClick={() => handleEditClick(lab)}>Edit</button>
+  return (
+    <div className="p-6 w-full min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-all">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+          Laboratory Management
+        </h2>
+        <button
+          onClick={() => setIsCreateLab(true)}
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition-transform transform hover:scale-105"
+        >
+          <PlusCircle size={18} />
+          Create Lab
+        </button>
+      </div>
 
-                                                    <Modal
-                                                        isOpen={editingLabOpen}
-                                                        onClose={() => setEditingLabOpen(false)}
-                                                    >
-                                                        <LabUpdateForm
-                                                            lab={editingLabData}
-                                                            onClose={() => setEditingLabOpen(false)}
-                                                            onLabUpdated={fetchLabs}
-                                                        />
-                                                    </Modal>
-                                                    <button onClick={() => deleteLabHandle(lab)}>Delete</button>
-                                                    <Modal
-                                                        isOpen={selecetedLab}
-                                                        onClose={() => setSelectedLab(false)}
-                                                    >
-                                                        <LabDelete
-                                                            lab={labToDelete}
-                                                            onClose={() => setSelectedLab(false)}
-                                                            onLabDelete={fetchLabs}
-                                                        />
-                                                    </Modal>
+      <Modal isOpen={isCreateLabOpen} onClose={() => setIsCreateLab(false)} title="Create New Lab">
+        <CreateLabForm onClose={() => setIsCreateLab(false)} onLabCreated={fetchLabs} />
+      </Modal>
 
-                                                </div>
-                                            </td>
+      {labsLoading ? (
+        <p className="text-center text-gray-600 dark:text-gray-300 mt-10 animate-pulse">
+          Loading labs...
+        </p>
+      ) : (
+        <div className="overflow-x-auto bg-white dark:bg-gray-800/60 backdrop-blur-md rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700">
+          <table className="min-w-full table-auto text-left">
+            <thead className="bg-gray-50 dark:bg-gray-700/40">
+              <tr className="text-gray-700 dark:text-gray-300 text-sm">
+                <th className="p-3 border-b">Actions</th>
+                <th className="p-3 border-b">Lab Name</th>
+                <th className="p-3 border-b">Location</th>
+                <th className="p-3 border-b">Assistant Name</th>
+                <th className="p-3 border-b">Assistant Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {labs.map((lab) => (
+                <tr
+                  key={lab._id}
+                  className="hover:bg-blue-50 dark:hover:bg-gray-700/30 transition-colors text-gray-800 dark:text-gray-100"
+                >
+                  <td className="p-3 flex gap-3 items-center justify-center">
+                    <button
+                      onClick={() => handleEditClick(lab)}
+                      className="p-2 rounded-lg bg-green-400 hover:bg-green-600 text-white shadow-md hover:scale-105 transition"
+                    >
+                      <Edit size={16} />
+                    </button>
 
-                                            <td className="p-2 border ">
+                    <Modal
+                      isOpen={editingLabOpen}
+                      onClose={() => setEditingLabOpen(false)}
+                    >
+                      <LabUpdateForm
+                        lab={editingLabData}
+                        onClose={() => setEditingLabOpen(false)}
+                        onLabUpdated={fetchLabs}
+                      />
+                    </Modal>
 
-                                                <div className="pl-4">
-                                                    {lab.labname}
-                                                </div>
-                                            </td>
-                                            <td className="p-2 border">
-                                                <div className="pl-4">{lab.location}</div>
+                    <button
+                      onClick={() => deleteLabHandle(lab)}
+                      className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-md hover:scale-105 transition"
+                    >
+                      <Trash2 size={16} />
+                    </button>
 
-                                            </td>
-                                            <td className="p-2 border">
-                                                <div className="pl-4">{lab.assistant?.name || "N/A"}</div>
+                    <Modal isOpen={selectedLab} onClose={() => setSelectedLab(false)}>
+                      <LabDelete
+                        lab={labToDelete}
+                        onClose={() => setSelectedLab(false)}
+                        onLabDelete={fetchLabs}
+                      />
+                    </Modal>
+                  </td>
 
-                                            </td>
-                                            <td className="p-2 border">
-                                                <div className="pl-4">{lab.assistant?.email || "N/A"}</div>
+                  <td className="p-3 border-b font-medium">{lab.labname}</td>
+                  <td className="p-3 border-b">{lab.location}</td>
+                  <td className="p-3 border-b">{lab.assistant?.name || "N/A"}</td>
+                  <td className="p-3 border-b">{lab.assistant?.email || "N/A"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div>
-                            <p className="ml-4 mt-2 text-lg">Total Labs: {labs.length}</p>
-
-                        </div>
-                    </>
-                )}
-            </div>
-
-        </>
-    );
+      <div className="mt-6 text-right text-gray-700 dark:text-gray-300 text-sm">
+        Total Labs: <span className="font-semibold">{labs.length}</span>
+      </div>
+    </div>
+  );
 };
+
 export default LabTable;
