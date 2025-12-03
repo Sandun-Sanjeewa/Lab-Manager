@@ -1,83 +1,50 @@
-import Card from "../../components/Card";
+import { useState } from "react";
 import EquipmentCard from "../../components/EquipmentCard";
 import Dashboard from "../../containers/Dashboard";
 import { useEquipment } from "../../context/equipmentContext/EquipmentContext";
 import { useEquipmentType } from "../../context/equipmentContext/EquipmentTypeContext";
 import { useLabs } from "../../context/LabContext";
-import { useRepair } from "../../context/RepairContext";
 import { useUsers } from "../../context/UserContext";
 import { Speaker, Mouse, Projector, Cable, PcCase, Monitor, Printer, Laptop, Keyboard, Mic, BatteryCharging, ScanLine, Users, Building, MonitorSpeaker, MonitorCog } from "lucide-react";
+import { SlidersHorizontal } from 'lucide-react';
 
-
-const LabDashboard = () => {
+const LabEquipment = () => {
     const { labs, loading: labsLoading } = useLabs();
     const { equipmentTypes } = useEquipmentType();
     const { users } = useUsers();
-    const assistantsCount = users.filter(u => u.role === "assistant").length;
     const { machines, printers, scaners, monitors, upss, cables, keyboards, mics, mouses, projectors, laps } = useEquipment();
-    const { repairs } = useRepair();
-    if (labsLoading) return <p>Loading Dashboard...</p>;
+    const [selectedLab, setSelectedLab] = useState("");
+    const filteredMachines = selectedLab
+        ? machines.filter((machine) => machine.labId === selectedLab)
+        : machines;
 
     return (
         <>
-
             <Dashboard
-
                 maincontent={
                     <>
                         <div>
                             <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center bg-gray-100 rounded-md ">
-                                <span className="text-xl md:text-2xl md:pl-10">Dashboard</span>
+                                <span className="text-xl md:text-2xl md:pl-10">Lab Equipment</span>
                             </div>
-
-
-                            <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-4  gap-4 md:gap-6 2xl:gap-7.5 md:px-10 md:pt-4  bg-gray-200 ">
-                                <Card
-                                    CardClass=""
-                                    TopicClass=""
-                                    topic="Assistants"
-                                    svgicon={
-                                      
-                                        <Users className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
-
-
-                                    }
-                                    content={assistantsCount}
-                                />
-
-                                <Card
-                                    CardClass=""
-                                    TopicClass=""
-                                    topic={"Labs"}
-                                    svgicon={
-                                        <Building className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
-
-                                    }
-                                    content={labs.length}
-                                    linkPath={"/labtable"}
-                                />
-
-
-                                <Card
-                                    CardClass={" "}
-                                    TopicClass={""}
-                                    topic={"Equipments"}
-                                    svgicon={
-                                        <MonitorSpeaker className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
-                                    }
-                                    content={equipmentTypes.length}
-                                    linkPath={"/labequipmenttypetable"}
-                                />
-                                <Card
-                                    CardClass={""}
-                                    TopicClass={""}
-                                    topic={"Repaires"}
-                                    svgicon={
-                                        <MonitorCog className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />
-                                    }
-                                    content={repairs.length}
-                                    linkPath={"/techniciondashboard"}
-                                />
+                            <div className=" w-full h-[30px] md:h-[50px]  mb-2 text-gray-900 flex items-center bg-gray-100 rounded-md px-4">
+                                <SlidersHorizontal className="md:w-6 md:h-6 text-gray-800" strokeWidth={1.2} />
+                                <div className="flex items-center px-2 ">
+                                    <label className="font-semibold text-gray-800 ">
+                                        Select Lab:
+                                    </label>
+                                    <select
+                                        className="border border-gray-300 dark:border-gray-700 rounded-md px-3 py-2 bg-gray-200 dark:bg-gray-800 text-gray-100 "
+                                        onChange={(e) => setSelectedLab(e.target.value)}
+                                    >
+                                        <option value="">All Labs</option>
+                                        {labs.map((lab) => (
+                                            <option key={lab._id} value={lab._id } className="text-gray-800">
+                                                {lab.labName}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
                             </div>
 
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 my-4  md:px-10 gap-y-2 gap-x-[2px] bg-gray-200">
@@ -85,6 +52,7 @@ const LabDashboard = () => {
                                     equipmentsvgicon={<PcCase className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
                                     equipmentQuantity={machines.length}
                                     equipmentName={"Machines"}
+                                    linkPath={""}
                                 />
                                 <EquipmentCard
                                     equipmentsvgicon={<Printer className="md:w-10 md:h-10 text-gray-900 group-hover:text-gray-100" strokeWidth={1} />}
@@ -143,18 +111,14 @@ const LabDashboard = () => {
                                     equipmentQuantity={machines.length}
                                     equipmentName={"Speakers"}
                                 />
-
-
                             </div>
-                           
+
+
                         </div>
                     </>
                 }
-
             />
-            
-
         </>
     );
 };
-export default LabDashboard 
+export default LabEquipment

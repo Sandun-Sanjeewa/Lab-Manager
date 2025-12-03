@@ -71,7 +71,7 @@ const LabTable = () => {
                       onClick={() => handleEditClick(lab)}
                       className="p-2 rounded-lg bg-green-400 hover:bg-green-600 text-white shadow-md hover:scale-105 transition"
                     >
-                      <Edit size={16} />
+                      <Edit size={12} />
                     </button>
 
                     <Modal
@@ -89,7 +89,7 @@ const LabTable = () => {
                       onClick={() => deleteLabHandle(lab)}
                       className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-md hover:scale-105 transition"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={12} />
                     </button>
 
                     <Modal isOpen={selectedLab} onClose={() => setSelectedLab(false)}>

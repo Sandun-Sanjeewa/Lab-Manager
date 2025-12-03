@@ -9,8 +9,7 @@ import { useUsers } from "../../context/UserContext.jsx";
 const DashboardPage = () => {
     const { users, setUsers, fetchUsers,  loading: usersLoading  } = useUsers();
 
-    // const [users, setUsers] = useState([]);
-    //const [loading, setLoading] = useState(true);
+    
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState("");
     const [userToDelete, setUserToDelete] = useState(null);
@@ -29,35 +28,7 @@ const DashboardPage = () => {
             fetchUsers();
         }
     }, [tokenReady]);
-   // const [tokenReady, setTokenReady] = useState(false);
-
-    // useEffect(() => {
-    //     const token = localStorage.getItem("token");
-    //     if (token) {
-    //         setTokenReady(true);
-    //     } else {
-    //         toast.error("You are not logged in.");
-    //     }
-    // }, []);
-
-    // useEffect(() => {
-    //     if (tokenReady) {
-    //         fetchUser();
-    //     }
-    // }, [tokenReady]);
-
-    // const fetchUser = async () => {
-    //     try {
-    //         const res = await getAllUsers();
-    //         setUsers(res.data);
-    //         setLoading(false);
-
-    //     } catch (error) {
-    //         console.error(error);
-    //         setLoading(false);
-    //         toast.error("Failed to fetch users");
-    //     }
-    // };
+  
 
     const handleEditClick = (user) => {
         if (user.role === "superadmin") {

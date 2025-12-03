@@ -17,6 +17,7 @@ import AssistantDashboard from "./pages/assistant/AssistentDashboard.jsx";
 import TechnicionDachboard from "./pages/technition/TechnicionDachboard.jsx";
 import LecturerDashboard from "./pages/lecturer/LecturerDashboard.jsx";
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
+import LabEquipment from "./pages/labs/LabEquipment.jsx";
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path="/lecturerdashboard" element={<LecturerDashboard/>} />
           <Route path="/techniciondashboard" element={<TechnicionDachboard/>} />
           <Route path="/studentdashboard" element={<StudentDashboard/>} />
+          <Route path="/labequipment" element={<LabEquipment/>}/>
         </Routes>
       </BrowserRouter>
 

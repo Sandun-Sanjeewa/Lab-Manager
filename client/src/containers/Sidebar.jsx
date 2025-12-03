@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Home, Settings, LayoutDashboard, Building, MonitorSpeaker, MonitorCog, CalendarClock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
     const [role, setRole] = useState(null);
@@ -31,25 +32,37 @@ const Sidebar = () => {
 
                         <div className="">
                             <div className="py-4 flex justify-center">
-                                <Home className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                <Link to="/home"><Home className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
                             </div>
                             <div className="py-4 flex justify-center">
-                                <LayoutDashboard className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                {["superadmin", "assistant"].includes(role) && (
+                                    <Link to="/assistantdashboard"> <LayoutDashboard className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+                                )}
+                                {["superadmin", "technician"].includes(role) && (
+                                    <Link to="/techniciondashboard"> <LayoutDashboard className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+                                )}
+                                {["superadmin", "lecturer"].includes(role) && (
+                                    <Link to="/lecturerdashboard"> <LayoutDashboard className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+                                )}
                             </div>
                         </div>
 
                         <div className=" h-full flex flex-col justify-around lg:pt-6 lg:pb-28">
                             <div className="py-4 flex justify-center">
-                                <Building className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                <Link to="/labtable"><Building className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+
                             </div>
                             <div className="py-4 flex justify-center">
-                                <MonitorSpeaker className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                <Link to="/labequipment"><MonitorSpeaker className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+
                             </div>
                             <div className="py-4 flex justify-center">
-                                <MonitorCog className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                <Link> <MonitorCog className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+                               
                             </div>
                             <div className="py-4 flex justify-center">
-                                <CalendarClock className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} />
+                                <Link><CalendarClock className="md:w-6 md:h-6 text-gray-100" strokeWidth={1.2} /></Link>
+                                
                             </div>
                         </div>
 

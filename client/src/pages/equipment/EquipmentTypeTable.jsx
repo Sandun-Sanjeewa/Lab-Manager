@@ -137,15 +137,15 @@ const EquipmentTypeTable = () => {
                     <td className="p-3 flex gap-3 items-center justify-center border-b">
                       <button
                         onClick={() => handleEditClick(equipmentType)}
-                        className="p-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white shadow-md hover:scale-105 transition"
+                        className="p-2 rounded-lg bg-green-400 hover:bg-green-500 text-white shadow-md hover:scale-105 transition"
                       >
-                        <Edit size={16} />
+                        <Edit size={12} />
                       </button>
                       <button
                         onClick={() => handleDeleteClick(equipmentType)}
                         className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white shadow-md hover:scale-105 transition"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={12} />
                       </button>
                     </td>
                     <td className="p-3 border-b font-medium">
